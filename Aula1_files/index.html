@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>index.knit</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="10/08/2022" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/metropolis.css" type="text/css" />
+    <link rel="stylesheet" href="css/metropolis-fonts.css" type="text/css" />
+    <link rel="stylesheet" href="css/footer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# <center>
+<img src= 'img/logo_sesc.jpg' width = '30%' alt='SESC Logo'></br>
+</center>
+]
+.subtitle[
+## Programação em R <BR> para Análise de Dados <BR> Uma Introdução
+]
+.author[
+### 10/08/2022
+]
+
+---
+
+layout: true
+  
+&lt;div class="my-footer"&gt;&lt;span&gt;
+
+
+&lt;a href="https://www.linkedin.com/in/hsvab/"&gt;LinkdIn&lt;/a&gt; |
+&lt;a href="https://twitter.com/hsvab"&gt;Twitter&lt;/a&gt; | 
+&lt;a href="https://www.instagram.com/haydeesvab/"&gt;Instagram&lt;/a&gt; |
+&lt;a href="https://www.facebook.com/haydee.svab/"&gt;Facebook&lt;/a&gt; |
+&lt;a href="https://github.com/hsvab"&gt;GitHub&lt;/a&gt;
+
+
+&lt;/span&gt;&lt;/div&gt; 
+
+
+---
+class: center, middle
+
+## Apresentações
+
+
+
+---
+class: split-two with-border
+.column.bg-main1[.content[
+
+&lt;BR&gt;&lt;BR&gt;
+
+- Cientista de Dados e Pesquisadora em
+
+Mobilidade Urbana e Cidades Inteligentes
+
+- CEO da ASK-AR
+
+Consultoria em análise de dados
+
+- Já trabalhei como consultora pra BID,
+
+Banco Mundial, IDEC, entre outros
+
+- Mestra em Engenharia e
+
+Planejamento de Transportes (Poli-USP)
+
+- Engenheira Civil (Poli-USP)
+
+- Email: &lt;a href="mailto:hsvab@hsvab.eng.br"&gt;hsvab@hsvab.eng.br&lt;/a&gt;
+
+]]
+
+.column.bg-main2[.content[
+
+&lt;br&gt;
+
+## Haydée Svab
+
+&lt;img src="img/foto-linkedin.jpeg" width="30%" /&gt;
+
+]]
+
+--
+
+## E vocês?
+
+---
+class: center, middle
+
+## Agenda
+
+---
+class:
+
+# Agenda do Curso
+
+- Aula 1: Introdução ao R e ao RStudio
+
+- Aula 2: Primeiros passos com R e o pacote tidyverse
+
+- Aula 3: Abrindo e manipulando dados
+
+- Aula 4: Estatísticas básicas
+
+- Aula 5: Visualizando dados
+
+- Aula 6: Markdown
+
+- Aula 7: Comunicando resultados
+
+
+---
+class:    
+
+# Agenda de hoje
+
+- Apresentações
+
+- Agenda
+
+- Acessando a RStudio Cloud
+
+- Algoritmos
+
+- Programação
+
+- R - uma visão geral
+
+- Introdução ao RStudio
+
+- Boas práticas
+
+- Dicas finais
+
+
+---
+class: center, middle
+
+## Acessando a RStudio Cloud
+
+
+---
+class: center
+
+
+
+# RStudio Cloud
+
+### - Criar conta na `RStudio` Cloud
+
+
+&lt;img src="img/rstudiocloud.PNG" width="40%" style="display: block; margin: auto;" /&gt;
+Link: [https://rstudio.cloud/](https://rstudio.cloud/)
+
+### - Acessar link do projeto
+
+Link: [https://bit.ly/rstudiocloud-curso-sesc](https://bit.ly/rstudiocloud-curso-sesc)
+
+### - Fazer uma cópia do projeto
+
+
+
+---
+class: center
+
+# RStudio Cloud
+
+### Exemplo de como acessar o projeto (GIF)
+
+&lt;img src="img/gif-rstudiocloud.gif" width="100%" style="display: block; margin: auto;" /&gt;
+
+
+Importante: Quando aparecer na sua tela, clique em **"Save a permanent copy"**
+
+---
+class: center, middle
+
+## Algoritmos
+
+
+---
+class:    
+
+# O que é um algoritmo?
+
+Um algoritmo é uma sequência finita de instruções.
+
+--
+
+O primeiro algoritmo foi desenvolvido no século XIX pela matemática e escritora inglesa Ada Lovelace.
+ 
+&lt;img src="img/ada_lovelace.jpeg" width="40%" style="display: block; margin: auto;" /&gt;
+
+---
+class:    
+
+
+# O que é um algoritmo?
+
+**Exemplo**
+
+* Receita de bolo
+
+&lt;img src="img/receita-bolo.jpg" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+class:    
+
+# O que é um algoritmo?
+
+**Exemplo**
+
+* [Como construir uma estante de livros](https://pt.wikihow.com/Construir-uma-Estante-de-Livros)
+
+&lt;img src="img/estante.jpg" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+class:    
+
+# O que é um algoritmo?
+
+**Exemplo**
+
+* [Como fazer um drone caseiro com arduino](https://www.palpitedigital.com/como-fazer-drone-caseiro-arduino/)
+
+&lt;img src="img/drone-arduino-e1469058606329-600.webp" width="50%" style="display: block; margin: auto;" /&gt;
+
+
+---
+class:    
+
+# O que é um algoritmo?
+
+##**Sua vez...**
+
+* Saindo de casa, pego o celular, abro um app e quero saber como chegar no SESC Paulista o mais breve possível. Poderia descrever qual(is) algoritmo(s) usamos?
+
+&lt;img src="img/rota.jpg" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+class: center, middle
+
+## Programação
+
+---
+class:    
+
+
+# O que é programar? 
+
+Programar um computador é escrever instruções em qualquer **linguagem** que o computador entenda.
+
+--
+
+Essa sequência de instruções pode ser executada por um humano ou por um computador.
+
+--
+
+Então, **programação é a arte de fazer com que o computador execute uma sequência de instruções definidas.**
+
+--
+
+
+```r
+print('Ola!')
+```
+
+```
+## [1] "Ola!"
+```
+
+---
+class: center, middle
+
+## R - uma visão geral
+
+---
+class:    
+
+# O que é o R?
+&gt; "R é um ambiente de software livre para computação estatística e gráficos". (https://www.r-project.org/)
+
+- **R** é um ambiente computacional e uma linguagem de programação que vem progressivamente se especializando em manipulação, análise e visualização gráfica de dados.
+
+
+- Atualmente, é considerado um dos melhores ambientes computacionais para essa finalidade.
+
+
+---
+class:    
+
+# O que é o R?
+
+* O ambiente está disponível para diferentes sistemas operacionais: Unix/Linux, Mac e Windows. 
+
+* Baseado na linguagem estatística S   
+
+* 1ª versão de 1995 por Ross Ihaka e Robert Gentleman da Universidade de Auckland
+
+&lt;img src="img/Rlogo.png" width="30%" style="display: block; margin: auto;" /&gt;
+
+---
+class:    
+
+
+# O que é o R?
+* Berço na Estatística
+
+* Muito usado por cientistas de dados, estatísticos e pesquisadores
+
+* Cada vez mais usado por jornalistas
+
+* Mantida pela [R Development Core Team](https://cran.r-project.org/) 
+
+* Pode ser usada para diversos fins
+
+---
+class:    
+
+# Por que usar o R?
+
+- É uma linguagem de programação para análise de dados
+
+- É open source
+
+- É uma linguagem interpretada
+
+- Possui uma comunidade ativa de desenvolvedores
+
+- É flexível, permitindo desenvolver funções e pacotes para facilitar o trabalho 
+
+- É multiplataforma (Windows, Linux e Mac)
+
+--
+
+- É reprodutível!
+
+--
+
+- É compartilhável!
+
+
+---
+class:    
+
+# O que é possível fazer com R?
+
+* Análise de dados - Estatística, modelagem, etc.
+
+* Visualização de dados
+
+* Apresentações 
+
+* Relatórios dinâmicos
+
+* Escrever livros 
+
+* Mineração de dados
+
+* Muito mais ...
+
+
+---
+class:    
+
+
+# Exemplo
+**Gráfico elaborado com `R` - Material Particulado 10 - Dados CETESB - RPollution** 
+
+&lt;img src="img/PMSP-chunk-6-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+Fonte: [Rpollution](https://www.rpollution.com/)
+
+---
+class:    
+
+# Exemplo
+
+**Frequência de Palavras - TESE Doutorado PROCAM/USP Ana Lucia Spinola** 
+
+&lt;img src="img/ana-lu-freq.png" width="70%" style="display: block; margin: auto;" /&gt;
+Fonte: [Ana Lu Spinola](https://analuspi.github.io/Text-Mining/)
+---
+class:    
+
+
+# Exemplo
+**BIGRAM - TESE Doutorado PROCAM/USP Ana Lucia Spinola** 
+
+&lt;img src="img/bigram-ana-lu.png" width="70%" style="display: block; margin: auto;" /&gt;
+Fonte: [Ana Lu Spinola](https://analuspi.github.io/Text-Mining/)
+
+---
+class: center, middle
+
+## Introdução ao RStudio
+
+---
+class:    
+
+
+# RStudio
+
+&lt;BR&gt;
+## É o IDE (*integrated development environment*) da Linguagem R, ou seja, o ambiente que utilizamos para editar e executar os códigos em R.
+
+
+
+---
+class:    
+
+
+# RStudio
+&lt;img src="img/01-rstudio-script.png" width="100%" style="display: block; margin: auto;" /&gt;
+Fonte: [SW Carpentry](http://swcarpentry.github.io/r-novice-gapminder/01-rstudio-intro/index.html)
+
+
+---
+class:    
+
+# RStudio
+&lt;img src="img/haydee1.jpg" width="100%" style="display: block; margin: auto;" /&gt;
+
+
+---
+class:    
+
+# RStudio
+&lt;img src="img/haydee2.jpg" width="100%" style="display: block; margin: auto;" /&gt;
+
+
+---
+class:    
+
+# RStudio
+&lt;img src="img/haydee3.jpg" width="100%" style="display: block; margin: auto;" /&gt;
+
+
+---
+class:    
+
+# RStudio
+&lt;img src="img/haydee4.jpg" width="100%" style="display: block; margin: auto;" /&gt;
+
+
+---
+class:    
+
+# RStudio
+&lt;img src="img/haydee5.jpg" width="100%" style="display: block; margin: auto;" /&gt;
+
+
+---
+class:    
+
+# RStudio
+&lt;img src="img/haydee6.jpg" width="100%" style="display: block; margin: auto;" /&gt;
+
+
+---
+class:    
+
+# RStudio
+&lt;img src="img/haydee7.jpg" width="100%" style="display: block; margin: auto;" /&gt;
+
+
+---
+class:    
+
+# RStudio
+
+&lt;img src="img/haydee8.jpg" width="100%" style="display: block; margin: auto;" /&gt;
+
+---
+class:    
+
+# RStudio
+
+## Help
+
+- Description: resumo geral
+- Usage: mostra como a função dever ser utilizada e quais argumentos podem ser especificados
+- Arguments: explica cada um dos argumentos
+- Details: explica mais alguns detalhes
+- Value: mostra o output da função (resultados)
+- Note: traz notas adicionais sobre a função
+- Authors: indica os(as) autores(as) da função
+- References: referências para os métodos utilizados
+- See also: traz funções relacionadas
+- Examples: traz exemplos de uso da função
+
+
+
+---
+class:    
+
+# Help!
+
+- Pedir ajuda: **help**(nome_da_funcao) ou **?**nome_da_funcao.
+
+
+```r
+help(sum)
+?sum
+```
+
+- Se a dúvida permanecer, procure no [Stack OverFlow](https://stackoverflow.com/) ou Google.
+- E se ainda tiver dúvidas, pergunte para a comunidade (há grupos no Telegram e outras redes sociais).
+
+
+---
+class: center, middle
+
+## Boas práticas iniciais para organizar seu projeto
+
+
+Fonte: [SW Carpentry](http://swcarpentry.github.io/r-novice-gapminder/02-project-intro/index.html)
+
+---
+class: 
+
+# Boas práticas 
+
+#### Tratar dados como somente leitura
+
+- Esse é provavelmente o objetivo mais importante da configuração de um projeto.
+
+- Os dados geralmente consomem tempo e/ou são caros para coletar.
+
+- Trabalhar com eles interativamente (por exemplo, no Excel), onde eles podem ser modificados, significa que você nunca tem certeza de onde os dados vieram, ou como eles foram modificados desde a coleta. 
+
+- Portanto, é uma boa ideia tratar seus dados como “somente leitura”.
+
+- Nunca sobrescrever os seus dados originais! Isso vale para a base e para variáveis.
+
+- Ex: ter uma pasta "data_raw" (dados brutos), e "data" (dados já tratados). 
+
+- Exemplo dos dados de orçamento da prefeitura: com código, fazer download dos dados brutos em uma pasta "data_raw". Tratar os dados, e a base "limpa" deve ser exportada para a pasta "data". Tudo isso deve ser realizado através de código! 
+
+
+---
+class: 
+
+# Boas práticas 
+
+#### Qualquer coisa gerada pelos seus scripts deve ser tratada como descartável
+
+
+- Não salvar o workspace ao fechar!
+
+- Ideal é que todos os seus resultados sejam possíveis de ser reproduzidos através do script. 
+
+
+---
+class: 
+
+# Boas práticas 
+
+#### Os nomes das suas variáveis devem fazer sentido
+
+- Ao nomear suas variáveis, dê nomes que tenham significado para seres humanos. Pense que o código que você escreve hoje deve ser claro para você daqui 1 ano e também deve ser claro para algum(a) colega seu(ua).
+
+- **Exemplo positivo**:
+
+
+```r
+lista_de_mercado &lt;- c("chocolate", "pao", "café")
+```
+
+- **Exemplo negativo**:
+
+
+```r
+lista &lt;- c("chocolate", "pao", "café")
+```
+
+
+---
+class: 
+
+# Boas práticas 
+
+#### Comente bem o seu código
+
+- É possível fazer comentários usando o símbolo '#'. É sempre bom explicar o que uma variável armazena, o que uma função faz, porque alguns parâmetros são passados para uma determinada função, qual é o objetivo de um trecho de código, etc.
+
+
+```r
+# Esse é um exemplo. O # é útil para escrever um comentário!
+
+help(sum) # a função help é útil para pesquisar a documentação 
+```
+
+- Atalho útil para comentário: `Ctrl + Shift + C`
+
+&lt;img src="img/gif-atalho-comentario.gif" width="100%" style="display: block; margin: auto;" /&gt;
+
+
+---
+class: 
+
+# Boas práticas
+
+#### Evite linhas de código muito longas
+
+- Usar linhas de código mais curtas ajuda na leitura do código.
+
+- **Exemplo positivo**:  fica mais fácil de ler!
+
+
+
+```r
+df_titanic  %&gt;%
+  filter(sexo == "masculino" &amp; sobreviveu == "sim") %&gt;%
+  arrange(classe)
+```
+
+- **Exemplo para evitar:**  fica mais difícil de ler
+
+```r
+df_titanic  %&gt;%   filter(sexo == "masculino" &amp; sobreviveu == "sim") %&gt;%   arrange(classe)
+```
+
+- Atalho útil para identação: `Ctrl + Shift + A`
+
+&lt;img src="img/gif-atalho-identacao.gif" width="100%" style="display: block; margin: auto;" /&gt;
+
+Fonte: [SW Carpentry](http://swcarpentry.github.io/r-novice-gapminder/02-project-intro/index.html)
+
+
+---
+class: 
+
+# Boas práticas 
+
+#### Escreva um código organizado
+
+- Por exemplo, adote um padrão no uso de minúsculas e maiúsculas, uma lógica única na organização de pastas e arquivos, pode ser adotada uma breve descrição (como comentário) indicando o que um determinado script faz.
+
+- Exemplo: use snake_case (palavras em minúsculas, separados por um underscore) em todas as variáveis e funções do seu projeto.
+
+- Dica útil: função `clean_names()` do pacote `janitor`.
+
+
+
+```r
+names(iris)
+```
+
+```
+## [1] "Sepal.Length" "Sepal.Width"  "Petal.Length" "Petal.Width"  "Species"
+```
+
+```r
+iris_clean &lt;- janitor::clean_names(iris)
+names(iris_clean)
+```
+
+```
+## [1] "sepal_length" "sepal_width"  "petal_length" "petal_width"  "species"
+```
+
+---
+class: 
+
+# Boas práticas
+
+#### Carregue todos os pacotes que irá usar sempre no início do arquivo
+
+- Quando alguém abrir o seu código será fácil identificar quais são os pacotes que devem ser instalados e quais dependências podem existir.
+
+- Exemplo:
+
+
+```r
+# Pacotes utilizados no projeto
+library(dplyr) # utilizada para manipulação dos dados
+library(ggplot2) # utilizada para criar gráficos bonitos
+library(magrittr) # possibilita usar o pipe %&gt;% 
+```
+
+---
+class: 
+
+# Boas práticas
+
+#### Evite referência de caminho que considere seu computador ou usuário
+
+- Faça referência ao caminho do projeto.
+
+- **Exemplo positivo**:
+
+
+```r
+df_titanic &lt;- read_csv("data/titanic.csv")
+```
+
+- **Exemplo negativo**:
+
+
+```r
+df_titanic &lt;- read_csv("C:\Users\beatr\Documents\GitHub\2020-R-Ladies-SP-Basico\data/titanic.csv")
+```
+
+---
+class: 
+
+# Boas práticas    
+
+#### Antes de começar
+
+- Ao realizar um projeto, sempre organizar os arquivos em uma **pasta** que conterá todos os arquivos de seu projeto. 
+
+- Nomear novos arquivos com **nomes descritivos**
+
+
+&lt;img src="img/diretorio-projeto.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+class: 
+
+# Boas práticas 
+
+#### Adote um bom layout de projeto
+
+- facilitará sua vida
+
+- ajudará a garantir a integridade de seus dados
+
+- facilitará o compartilhamento de seu código com outra pessoa (colega de laboratório, colaborador ou /orientador)
+
+- permitirá que você facilmente faça o upload do seu código com a submissão do seu manuscrito
+
+- tornará mais fácil recuperar o projeto depois de um intervalo
+
+
+
+
+
+
+---
+class:   
+
+# Em casa...
+
+## No seu computador instale `R` e `RStudio`
+
+Link para obter a última versão do R: [https://www.r-project.org/](https://www.r-project.org/)
+
+Link para obter a última versão do RStudio: [https://www.rstudio.com/products/rstudio/download/](https://www.rstudio.com/products/rstudio/download/)
+
+
+&lt;img src="img/rlogos/rstudio-r.jpg" width="50%" style="display: block; margin: auto;" /&gt;
+
+
+---
+class:   
+
+# Em casa...
+
+## Crie um projeto
+
+- Abra o `RStudio` no seu computador
+
+- Crie um novo projeto (file -&gt; new project -&gt; new directory -&gt; new project)
+
+- Escreva o nome do diretório (pasta) onde deseja manter seu projeto e clique no botão *“Create Project”*
+
+- Crie um novo `R` script para escrever seus códigos (file -&gt; new file -&gt; `R` script)
+
+&lt;img src="img/gif-criar-projeto.gif" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+class:    
+
+# Para aprender mais
+
+- [Livro `R` for Data Science](https://r4ds.had.co.nz) &lt;br&gt;&lt;/br&gt;
+- [Software Carpentry](https://software-carpentry.org/lessons/) &lt;br&gt;&lt;/br&gt;
+- [Material do Curso-R](https://www.curso-r.com/material/) &lt;br&gt;&lt;/br&gt;
+- [Repositório RLadies São Paulo](https://github.com/rladies/meetup-presentations_sao-paulo) &lt;br&gt;&lt;/br&gt;
+- [R-Bloggers](https://www.r-bloggers.com) &lt;br&gt;&lt;/br&gt;
+
+---
+class:    
+
+# Referências
+
+- https://r4ds.had.co.nz
+
+- https://www.curso-r.com/material/
+
+- https://software-carpentry.org/lessons/
+
+- https://beatrizmilz.github.io/talk/oficina_intro_r_ufabc_2018/
+
+- https://bookdown.org/wevsena/curso_r_tce/curso_r_tce.html
+
+- https://rafalab.github.io/dsbook/getting-started.html
+
+- https://rstudio-pubs-static.s3.amazonaws.com/279878_c7634fb5fe9e40b7abc7c35aa724a2a0.html
+
+
+---
+class:center
+
+# Agradecimentos
+
+Beatriz Milz 
+&lt;img src="img/bea-milz.jpg" width="20%" style="display: block; margin: auto;" /&gt;
+
+Capítulo RLadies São Paulo
+&lt;img src="img/rlogos/r-ladies-sp.png" width="20%" style="display: block; margin: auto;" /&gt;
+
+Apresentação feita com [RMarkdown](https://rmarkdown.rstudio.com/) e [Xaringan](https://github.com/yihui/xaringan), &lt;br&gt;
+com o tema `metropolis` modificado por Bea Milz e Haydee Svab
+
+
+---
+class: middle
+
+&lt;center&gt;&lt;img src="img/if_you_want_to_go_fast_go_alone.jpg" style="width: 50%"&gt;&lt;/center&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="libs/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<style>
+  .logo {
+/*    background-image: url(img/rainbow.png); */
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+    width: 50px;
+    height: 128px;
+    z-index: 0;
+  }
+</style>
+  
+  <script>
+  document
+.querySelectorAll(
+  '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+  // ':not(.inverse)' +
+    ':not(.hide-logo)'
+)
+.forEach(el => {
+  el.innerHTML += '<div class="logo"></div>';
+});
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
