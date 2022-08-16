@@ -1,0 +1,2091 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>index.knit</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="17/08/2022" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/metropolis.css" type="text/css" />
+    <link rel="stylesheet" href="css/metropolis-fonts.css" type="text/css" />
+    <link rel="stylesheet" href="css/footer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# <center>
+<img src= 'img/logo_sesc.jpg' width = '30%' alt='SESC Logo'></br>
+</center>
+]
+.subtitle[
+## Programação em R <BR> para Análise de Dados <BR> Uma Introdução
+]
+.author[
+### 17/08/2022
+]
+
+---
+
+layout: true
+  
+&lt;div class="my-footer"&gt;&lt;span&gt;
+
+
+&lt;a href="https://www.linkedin.com/in/hsvab/"&gt;LinkdIn&lt;/a&gt; |
+&lt;a href="https://twitter.com/hsvab"&gt;Twitter&lt;/a&gt; | 
+&lt;a href="https://www.instagram.com/haydeesvab/"&gt;Instagram&lt;/a&gt; |
+&lt;a href="https://www.facebook.com/haydee.svab/"&gt;Facebook&lt;/a&gt; |
+&lt;a href="https://github.com/hsvab"&gt;GitHub&lt;/a&gt;
+
+
+&lt;/span&gt;&lt;/div&gt; 
+
+
+---
+
+class:
+
+# Agenda do Curso
+
+- Aula 1: Introdução ao R e ao RStudio
+
+- **Aula 2: Primeiros passos com R e o pacote tidyverse**
+
+- Aula 3: Abrindo e manipulando dados
+
+- Aula 4: Estatísticas básicas
+
+- Aula 5: Visualizando dados
+
+- Aula 6: Markdown
+
+- Aula 7: Comunicando resultados
+
+
+---
+class:    
+
+# Agenda de hoje
+
+- Cálculos com R Básico
+
+- Desafio #1
+
+- Objetos no R - o que são e como atribuir valor
+
+- Desafio #2
+
+- Classes básicas ou atômicas do R
+
+- Desafio #3
+
+- Tipos de objetos no R
+
+- Desafios #4
+
+- Operadores relacionais e lógicos
+
+- Desafio #5
+
+- Pacotes e tidyverse
+
+- Dicas finais para casa
+
+
+---
+class: center, middle
+
+## Pré-requisitos
+
+
+
+---
+class: center
+
+# Pré-requisitos
+
+## - `R` e `RStudio` instalados no seu notebook 
+
+&lt;img src="img/rlogos/rstudio-r.jpg" width="25%" style="display: block; margin: auto;" /&gt;
+
+## &lt;center&gt;&lt;b&gt;OU&lt;/b&gt;&lt;/center&gt; 
+
+## - `RStudio` Cloud
+
+&lt;img src="img/rstudiocloud.PNG" width="30%" style="display: block; margin: auto;" /&gt;
+Link da aula:
+[https://bit.ly/rstudiocloud-curso-sesc](https://bit.ly/rstudiocloud-curso-sesc)
+
+Não esqueça de fazer uma cópia do projeto
+
+
+---
+
+class: center, middle
+
+## `R` Básico
+
+
+---
+
+class:    
+
+
+# `R` como calculadora
+
+- O `R` permite realizar muitas operações em seu console!
+
+--
+
+As tradicionais 4 operações aritméticas:
+
+
+
+```r
+7 + 9    # adição
+```
+
+```
+## [1] 16
+```
+
+```r
+9 - 2    # subtração
+```
+
+```
+## [1] 7
+```
+
+```r
+3 * 5    # multiplicação
+```
+
+```
+## [1] 15
+```
+
+```r
+18 / 9    # divisão
+```
+
+```
+## [1] 2
+```
+
+
+---
+class:    
+
+# `R` como calculadora
+
+--
+
+Que outras operações vocês imaginam?
+
+--
+
+
+```r
+4 ^ 2    # potenciação
+```
+
+```
+## [1] 16
+```
+
+```r
+sqrt(64) # radiciação
+```
+
+```
+## [1] 8
+```
+
+--
+
+
+```r
+15 %/% 4  # parte inteira da divisão de 7 por 4
+```
+
+```
+## [1] 3
+```
+
+```r
+15 %% 4   # resto da divisão de 9 por 4
+```
+
+```
+## [1] 3
+```
+
+*Observação: a ordem matemática das operações continua valendo*
+
+
+---
+
+class:    
+
+# Dica
+
+##Seu primeiro "atalho" no R:
+
+`CTRL + ENTER`: executa a linha selecionada no script.
+
+&lt;center&gt;&lt;img src="img/S5e27_T.V._typing.gif"&gt;&lt;/center&gt; 
+
+
+---
+class:    
+
+# Funções matemáticas
+
+
+```r
+sin(1)  # funções trigonométricas
+```
+
+```
+## [1] 0.841471
+```
+
+```r
+log(1)  # logaritmo natural (base e)
+```
+
+```
+## [1] 0
+```
+
+```r
+log10(10) # logaritmo na base 10
+```
+
+```
+## [1] 1
+```
+
+```r
+exp(0.5) # e^(1/2)
+```
+
+```
+## [1] 1.648721
+```
+
+Fonte: [SW Carpentry](http://swcarpentry.github.io/r-novice-gapminder/01-rstudio-intro/index.html)
+
+
+---
+class:    
+
+
+# Desafio 1
+
+Haydée quer contabilizar quantas pessoas participaram das suas aulas em 2021.
+Ela anotou o número de pessoas que participaram em cada mês, como se segue:
+
+1. Fevereiro, Outubro e Novembro - 20 pessoas cada
+1. Abril e Agosto - 15 pessoas cada
+1. Março, Maio e Julho - 30 pessoas cada 
+1. Junho, Setembro e Dezembro - 25 pessoas cada  
+
+Quantas pessoas participaram das suas aulas no período considerado? 
+
+--
+
+
+```r
+3*20 + 15*2 + 30*3 + 25*3
+```
+
+```
+## [1] 255
+```
+
+
+---
+class:    
+
+# O que é um objeto?
+
+É a representação do conjunto de carcterísticas individuais de alguma coisa.
+
+- Ao se desenvolver um projeto, você irá trabalhar com diversos tipos de arquivos, além de informações que serão repetidas ao longo do script.
+
+- Para reutilizar essas informações ao longo do script utilizamos **objetos**
+
+- De forma simplificada, **um objeto retém e representa um valor ou uma expressão**.
+
+&lt;img src="img/ran.jpg" width="30%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+class:    
+
+# Atribuindo valor a um objeto no R
+
+- Para atribuir um valor a um objeto no R, utilizamos o operador **&lt;-**  &lt;br&gt;&lt;/br&gt;
+
+- Todas as declarações em `R` onde são criados objetos atribuindo-se valores a elas, têm a mesma forma:  
+
+&lt;center&gt;&lt;b&gt;nome_do_objeto &lt;- valor&lt;/b&gt;&lt;/center&gt;
+
+--
+
+- Exemplo 
+
+
+```r
+nome_municipio &lt;- "Ipixuna do Pará"
+```
+
+--
+
+
+```r
+nome_municipio
+```
+
+```
+## [1] "Ipixuna do Pará"
+```
+
+
+---
+
+class:    
+
+# Dica
+
+##Seu segundo "atalho" no R:
+
+
+`ALT` + **`-`** gera o operador **&lt;-**
+
+&lt;center&gt;&lt;img src="img/S5e27_T.V._typing.gif"&gt;&lt;/center&gt; 
+
+---
+
+class:    
+
+
+# Nomes de objetos
+
+- Os nomes devem começar com uma letra. Podem conter letras, números, _ e .&lt;br&gt;&lt;/br&gt;
+
+- Recomendação do autor do livro `R` For Data Science: **usar_snake_case**, ou seja, palavras escritas em minúsculo separadas pelo underscore (_).&lt;br&gt;&lt;/br&gt;
+
+- O `R` é *case sensitive*, isto é, faz a diferenciação entre as letras minúsculas e maiúsculas. Portanto, um objeto chamado *teste* é diferente de uma outro objeto chamada *Teste*.
+
+
+---
+
+class:    
+
+# Objetos e atribuição de valores
+
+- Exemplos
+
+
+```r
+qtde_hab_municipio &lt;- 62455
+qtde_hab_municipio
+```
+
+```
+## [1] 62455
+```
+
+```r
+pib.per.capita &lt;- 8620.01
+pib.per.capita
+```
+
+```
+## [1] 8620.01
+```
+
+- Atenção para separador de milhar e de decimal: usa-se **.** como separador de decimal padrão.&lt;br&gt;&lt;/br&gt;
+
+
+
+---
+class:    
+
+# Desafio 2
+
+1) Crie objetos para os casos abaixo:
+- Restaurante com valor Restaurante Italiano
+- Conta a pagar com valor 50,75
+- Saldo no VR com 75,00
+
+--
+
+2) Usando os objetos criados anteriormente, determine o saldo que restará no VR após pagar a conta.
+
+&lt;img src="img/macarrao-pesto.jpg" width="50%" style="display: block; margin: auto;" /&gt;
+
+
+---
+class:    
+
+# Desafio 2 - Resposta
+
+1) Crie objetos para os casos abaixo:
+
+--
+
+
+```r
+restaurante &lt;- "Restaurante Italiano"
+restaurante
+```
+
+```
+## [1] "Restaurante Italiano"
+```
+
+--
+
+
+```r
+conta &lt;- 50.75
+conta
+```
+
+```
+## [1] 50.75
+```
+
+--
+
+
+```r
+saldo_vr &lt;- 75.00
+saldo_vr
+```
+
+```
+## [1] 75
+```
+
+---
+class:
+
+# Desafio 2 - Resposta
+
+2) Usando os objetos criados anteriormente, determine o saldo que restará no VR após pagar a conta.
+
+--
+
+
+```r
+saldo_vr - conta
+```
+
+```
+## [1] 24.25
+```
+
+
+
+---
+class:    
+
+
+# Classes Básicas ou Atômicas do R
+
+São os tipos básicos de dados que podem ser representados na linguagem R. É neles que guardamos as informações que necessitamos para um algoritmo.
+
+- **Integer**: números inteiros &lt;br&gt;&lt;/br&gt;
+- **Numeric**: números racionais &lt;br&gt;&lt;/br&gt;
+- **Complex**: números complexos (raramente usados para Análise de Dados) &lt;br&gt;&lt;/br&gt;
+- **Logical**: TRUE, FALSE ou NA &lt;br&gt;&lt;/br&gt;
+- **Factor**: variavéis categóricas &lt;br&gt;&lt;/br&gt;
+- **Character**: texto &lt;br&gt;&lt;/br&gt;
+
+
+---
+class:
+
+# Exemplos: integer
+
+Números inteiros
+
+
+```r
+50L # Um número inteiro pode ser representado acompanhado de um L
+```
+
+```
+## [1] 50
+```
+
+```r
+2022L
+```
+
+```
+## [1] 2022
+```
+
+
+---
+
+class:    
+
+# Exemplos: numeric
+
+Números racionais
+
+
+```r
+50
+```
+
+```
+## [1] 50
+```
+
+```r
+2022
+```
+
+```
+## [1] 2022
+```
+
+```r
+5.75
+```
+
+```
+## [1] 5.75
+```
+
+
+---
+
+class:    
+
+# Exemplos: complex
+
+Números complexos
+
+
+```r
+5 + 3i
+```
+
+```
+## [1] 5+3i
+```
+
+
+---
+
+class:    
+
+# Exemplos: logical
+
+Lógicos ou boleanos
+
+
+```r
+TRUE
+```
+
+```
+## [1] TRUE
+```
+
+```r
+FALSE
+```
+
+```
+## [1] FALSE
+```
+
+---
+
+class:    
+
+# Exemplos: factor
+
+Variavéis categóricas (fatores)
+
+
+```r
+classificacao_municipio &lt;- c("De pequeno porte",
+                            "De médio porte",
+                            "De grande porte")
+
+fatores &lt;- as.factor(classificacao_municipio)
+```
+
+--
+
+
+```r
+classificacao_municipio
+```
+
+```
+## [1] "De pequeno porte" "De médio porte"   "De grande porte"
+```
+
+```r
+fatores
+```
+
+```
+## [1] De pequeno porte De médio porte   De grande porte 
+## Levels: De grande porte De médio porte De pequeno porte
+```
+
+A função as.factor() criou um objeto do tipo factor.
+
+Na linha *Levels* aparecem os rótulos do fator.
+
+
+---
+class:    
+
+
+# Exemplos: character
+
+
+```r
+"municipio"
+```
+
+```
+## [1] "municipio"
+```
+
+```r
+"2022"
+```
+
+```
+## [1] "2022"
+```
+
+```r
+"Vai Censo!"
+```
+
+```
+## [1] "Vai Censo!"
+```
+
+
+---
+class:    
+
+# Operações simples com strings
+
+
+```r
+municipio &lt;- "Ipixuna do Pará"
+#letras maiúsculas
+toupper(municipio)
+```
+
+```
+## [1] "IPIXUNA DO PARÁ"
+```
+
+--
+
+
+```r
+#letras minúsculas
+tolower(municipio)
+```
+
+```
+## [1] "ipixuna do pará"
+```
+
+--
+
+
+```r
+#número de caracteres
+nchar(municipio)
+```
+
+```
+## [1] 15
+```
+
+
+---
+class:    
+
+# Função class
+
+A função **class** mostra a classe de um objeto.
+
+
+```r
+nome_municipio &lt;- "Ipixuna do Pará"
+class(nome_municipio)
+```
+
+```
+## [1] "character"
+```
+
+--
+
+
+```r
+ano_fundacao_inteiro &lt;- 1991L
+class(ano_fundacao_inteiro)
+```
+
+```
+## [1] "integer"
+```
+
+--
+
+
+```r
+ano_fundacao &lt;- 1991
+class(ano_fundacao)
+```
+
+```
+## [1] "numeric"
+```
+Fonte: [Wikipedia](https://pt.wikipedia.org/wiki/Ipixuna_do_Pará)
+
+
+---
+
+class:    
+
+# Conversão de classes
+
+Podemos forçar um objeto a ser de uma classe específica com as funções:  
+- as.character() &lt;br&gt;&lt;/br&gt;
+- as.numeric() &lt;br&gt;&lt;/br&gt;
+- as.integer() &lt;br&gt;&lt;/br&gt;
+- as.logical() &lt;br&gt;&lt;/br&gt;
+
+---
+class:    
+
+
+# Conversão de classes
+** Exemplos de conversão de classes **
+
+
+```r
+vetor &lt;- 0:9
+vetor
+```
+
+```
+##  [1] 0 1 2 3 4 5 6 7 8 9
+```
+
+--
+
+
+```r
+class(vetor)
+```
+
+```
+## [1] "integer"
+```
+
+--
+
+
+```r
+vetor_numeric &lt;- as.numeric(vetor)
+vetor_numeric
+```
+
+```
+##  [1] 0 1 2 3 4 5 6 7 8 9
+```
+
+```r
+class(vetor_numeric)
+```
+
+```
+## [1] "numeric"
+```
+
+
+---
+class:    
+
+
+# Desafio 3
+
+Converta o objeto **conta** criado no Desafio 2 para character.
+Agora cheque sua classe.
+O que acontece com seu valor?
+Como explica o que aconteceu?
+
+
+---
+
+class:    
+
+# Desafio 3 - Resposta
+
+Converta o objeto **conta** criado anteriormente para character. Agora cheque sua classe. O que acontece com seu valor? 
+
+
+```r
+conta
+```
+
+```
+## [1] 50.75
+```
+
+```r
+class(conta)
+```
+
+```
+## [1] "numeric"
+```
+
+--
+
+
+```r
+as.character(conta)
+```
+
+```
+## [1] "50.75"
+```
+
+```r
+class(conta)
+```
+
+```
+## [1] "numeric"
+```
+
+
+---
+
+class:    
+
+# Desafio 3 - Resposta
+
+Converta o objeto **conta** criado anteriormente para character. Agora cheque sua classe. O que acontece com seu valor? 
+
+
+```r
+as.character(conta)
+```
+
+```
+## [1] "50.75"
+```
+
+```r
+class(conta)
+```
+
+```
+## [1] "numeric"
+```
+
+--
+
+
+```r
+conta &lt;-  as.character(conta)
+class(conta)
+```
+
+```
+## [1] "character"
+```
+
+---
+class:    
+
+
+# Tipos de objetos
+
+Os tipos dos objetos são definidos a partir dos valores armazenados neles:
+
+- **Vector**: armazena elementos de mesma classe. &lt;br&gt;&lt;/br&gt;   
+- **Matrix**: vetores de duas dimensões que armazenam elementos de mesma classe. &lt;br&gt;&lt;/br&gt;
+- **List**: tipo especial de vetor que aceita elementos de classes diferentes. &lt;br&gt;&lt;/br&gt;
+- **Data.frame**: são tabelas de dados com linhas e colunas, como uma tabela do Excel. Como são listas, essas colunas podem ser de classes diferentes, mas as linhas de uma mesma coluna precisa conter elementos da mesma classe.
+
+---
+class:    
+
+
+# Exemplo: Vector
+
+A função c() cria um vetor.
+
+```r
+notas_estudantes &lt;- c(5, 6.5, 10, 0.5, 2.75)
+```
+
+--
+
+É possível realizar operações com vetores.
+
+
+```r
+notas_estudantes / 5   # objeto notas_estudantes dividido por 5
+```
+
+```
+## [1] 1.00 1.30 2.00 0.10 0.55
+```
+
+
+```r
+multiplicador_presenca &lt;- c(1, 1.1, 0.9, 1.2, 1.25)
+notas_estudantes * multiplicador_presenca
+```
+
+```
+## [1] 5.0000 7.1500 9.0000 0.6000 3.4375
+```
+
+--
+
+Para checar se um objeto é um vetor:
+
+```r
+is.vector(notas_estudantes)
+```
+
+```
+## [1] TRUE
+```
+
+---
+class:    
+
+
+# Exemplo: Matrix
+
+A função matrix() cria uma matriz.
+
+```r
+primeira_matriz &lt;- matrix(1:8, nrow = 2, ncol = 4)
+primeira_matriz
+```
+
+```
+##      [,1] [,2] [,3] [,4]
+## [1,]    1    3    5    7
+## [2,]    2    4    6    8
+```
+
+--
+
+A função dim() retorna a dimensão do objeto (linha e coluna).
+
+```r
+dim(primeira_matriz)
+```
+
+```
+## [1] 2 4
+```
+
+--
+
+Para checar se um objeto é uma matriz:
+
+```r
+is.matrix(primeira_matriz)
+```
+
+```
+## [1] TRUE
+```
+
+
+---
+class:    
+
+
+# Exemplo: List
+
+A função list() cria uma lista.
+
+```r
+livros_R &lt;- list("R para Data Science",
+                 "Utilizando a Linguagem R",
+                 c("Advanced R", "Hands-On Programming with R"))
+```
+
+--
+
+Para checar se um objeto é uma lista:
+
+```r
+is.list(livros_R)
+```
+
+```
+## [1] TRUE
+```
+
+--
+
+
+```r
+livros_R_ingles &lt;- c("Advanced R", "Hands-On Programming with R")
+is.list(livros_R_ingles)
+```
+
+```
+## [1] FALSE
+```
+
+
+---
+class:    
+
+# Exemplo: Data.frame
+
+
+
+```r
+data(iris)
+
+dataframe_flores &lt;- iris
+
+dataframe_flores
+```
+
+```
+##     Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
+## 1            5.1         3.5          1.4         0.2     setosa
+## 2            4.9         3.0          1.4         0.2     setosa
+## 3            4.7         3.2          1.3         0.2     setosa
+## 4            4.6         3.1          1.5         0.2     setosa
+## 5            5.0         3.6          1.4         0.2     setosa
+## 6            5.4         3.9          1.7         0.4     setosa
+## 7            4.6         3.4          1.4         0.3     setosa
+## 8            5.0         3.4          1.5         0.2     setosa
+## 9            4.4         2.9          1.4         0.2     setosa
+## 10           4.9         3.1          1.5         0.1     setosa
+## 11           5.4         3.7          1.5         0.2     setosa
+## 12           4.8         3.4          1.6         0.2     setosa
+## 13           4.8         3.0          1.4         0.1     setosa
+## 14           4.3         3.0          1.1         0.1     setosa
+## 15           5.8         4.0          1.2         0.2     setosa
+## 16           5.7         4.4          1.5         0.4     setosa
+## 17           5.4         3.9          1.3         0.4     setosa
+## 18           5.1         3.5          1.4         0.3     setosa
+## 19           5.7         3.8          1.7         0.3     setosa
+## 20           5.1         3.8          1.5         0.3     setosa
+## 21           5.4         3.4          1.7         0.2     setosa
+## 22           5.1         3.7          1.5         0.4     setosa
+## 23           4.6         3.6          1.0         0.2     setosa
+## 24           5.1         3.3          1.7         0.5     setosa
+## 25           4.8         3.4          1.9         0.2     setosa
+## 26           5.0         3.0          1.6         0.2     setosa
+## 27           5.0         3.4          1.6         0.4     setosa
+## 28           5.2         3.5          1.5         0.2     setosa
+## 29           5.2         3.4          1.4         0.2     setosa
+## 30           4.7         3.2          1.6         0.2     setosa
+## 31           4.8         3.1          1.6         0.2     setosa
+## 32           5.4         3.4          1.5         0.4     setosa
+## 33           5.2         4.1          1.5         0.1     setosa
+## 34           5.5         4.2          1.4         0.2     setosa
+## 35           4.9         3.1          1.5         0.2     setosa
+## 36           5.0         3.2          1.2         0.2     setosa
+## 37           5.5         3.5          1.3         0.2     setosa
+## 38           4.9         3.6          1.4         0.1     setosa
+## 39           4.4         3.0          1.3         0.2     setosa
+## 40           5.1         3.4          1.5         0.2     setosa
+## 41           5.0         3.5          1.3         0.3     setosa
+## 42           4.5         2.3          1.3         0.3     setosa
+## 43           4.4         3.2          1.3         0.2     setosa
+## 44           5.0         3.5          1.6         0.6     setosa
+## 45           5.1         3.8          1.9         0.4     setosa
+## 46           4.8         3.0          1.4         0.3     setosa
+## 47           5.1         3.8          1.6         0.2     setosa
+## 48           4.6         3.2          1.4         0.2     setosa
+## 49           5.3         3.7          1.5         0.2     setosa
+## 50           5.0         3.3          1.4         0.2     setosa
+## 51           7.0         3.2          4.7         1.4 versicolor
+## 52           6.4         3.2          4.5         1.5 versicolor
+## 53           6.9         3.1          4.9         1.5 versicolor
+## 54           5.5         2.3          4.0         1.3 versicolor
+## 55           6.5         2.8          4.6         1.5 versicolor
+## 56           5.7         2.8          4.5         1.3 versicolor
+## 57           6.3         3.3          4.7         1.6 versicolor
+## 58           4.9         2.4          3.3         1.0 versicolor
+## 59           6.6         2.9          4.6         1.3 versicolor
+## 60           5.2         2.7          3.9         1.4 versicolor
+## 61           5.0         2.0          3.5         1.0 versicolor
+## 62           5.9         3.0          4.2         1.5 versicolor
+## 63           6.0         2.2          4.0         1.0 versicolor
+## 64           6.1         2.9          4.7         1.4 versicolor
+## 65           5.6         2.9          3.6         1.3 versicolor
+## 66           6.7         3.1          4.4         1.4 versicolor
+## 67           5.6         3.0          4.5         1.5 versicolor
+## 68           5.8         2.7          4.1         1.0 versicolor
+## 69           6.2         2.2          4.5         1.5 versicolor
+## 70           5.6         2.5          3.9         1.1 versicolor
+## 71           5.9         3.2          4.8         1.8 versicolor
+## 72           6.1         2.8          4.0         1.3 versicolor
+## 73           6.3         2.5          4.9         1.5 versicolor
+## 74           6.1         2.8          4.7         1.2 versicolor
+## 75           6.4         2.9          4.3         1.3 versicolor
+## 76           6.6         3.0          4.4         1.4 versicolor
+## 77           6.8         2.8          4.8         1.4 versicolor
+## 78           6.7         3.0          5.0         1.7 versicolor
+## 79           6.0         2.9          4.5         1.5 versicolor
+## 80           5.7         2.6          3.5         1.0 versicolor
+## 81           5.5         2.4          3.8         1.1 versicolor
+## 82           5.5         2.4          3.7         1.0 versicolor
+## 83           5.8         2.7          3.9         1.2 versicolor
+## 84           6.0         2.7          5.1         1.6 versicolor
+## 85           5.4         3.0          4.5         1.5 versicolor
+## 86           6.0         3.4          4.5         1.6 versicolor
+## 87           6.7         3.1          4.7         1.5 versicolor
+## 88           6.3         2.3          4.4         1.3 versicolor
+## 89           5.6         3.0          4.1         1.3 versicolor
+## 90           5.5         2.5          4.0         1.3 versicolor
+## 91           5.5         2.6          4.4         1.2 versicolor
+## 92           6.1         3.0          4.6         1.4 versicolor
+## 93           5.8         2.6          4.0         1.2 versicolor
+## 94           5.0         2.3          3.3         1.0 versicolor
+## 95           5.6         2.7          4.2         1.3 versicolor
+## 96           5.7         3.0          4.2         1.2 versicolor
+## 97           5.7         2.9          4.2         1.3 versicolor
+## 98           6.2         2.9          4.3         1.3 versicolor
+## 99           5.1         2.5          3.0         1.1 versicolor
+## 100          5.7         2.8          4.1         1.3 versicolor
+## 101          6.3         3.3          6.0         2.5  virginica
+## 102          5.8         2.7          5.1         1.9  virginica
+## 103          7.1         3.0          5.9         2.1  virginica
+## 104          6.3         2.9          5.6         1.8  virginica
+## 105          6.5         3.0          5.8         2.2  virginica
+## 106          7.6         3.0          6.6         2.1  virginica
+## 107          4.9         2.5          4.5         1.7  virginica
+## 108          7.3         2.9          6.3         1.8  virginica
+## 109          6.7         2.5          5.8         1.8  virginica
+## 110          7.2         3.6          6.1         2.5  virginica
+## 111          6.5         3.2          5.1         2.0  virginica
+## 112          6.4         2.7          5.3         1.9  virginica
+## 113          6.8         3.0          5.5         2.1  virginica
+## 114          5.7         2.5          5.0         2.0  virginica
+## 115          5.8         2.8          5.1         2.4  virginica
+## 116          6.4         3.2          5.3         2.3  virginica
+## 117          6.5         3.0          5.5         1.8  virginica
+## 118          7.7         3.8          6.7         2.2  virginica
+## 119          7.7         2.6          6.9         2.3  virginica
+## 120          6.0         2.2          5.0         1.5  virginica
+## 121          6.9         3.2          5.7         2.3  virginica
+## 122          5.6         2.8          4.9         2.0  virginica
+## 123          7.7         2.8          6.7         2.0  virginica
+## 124          6.3         2.7          4.9         1.8  virginica
+## 125          6.7         3.3          5.7         2.1  virginica
+## 126          7.2         3.2          6.0         1.8  virginica
+## 127          6.2         2.8          4.8         1.8  virginica
+## 128          6.1         3.0          4.9         1.8  virginica
+## 129          6.4         2.8          5.6         2.1  virginica
+## 130          7.2         3.0          5.8         1.6  virginica
+## 131          7.4         2.8          6.1         1.9  virginica
+## 132          7.9         3.8          6.4         2.0  virginica
+## 133          6.4         2.8          5.6         2.2  virginica
+## 134          6.3         2.8          5.1         1.5  virginica
+## 135          6.1         2.6          5.6         1.4  virginica
+## 136          7.7         3.0          6.1         2.3  virginica
+## 137          6.3         3.4          5.6         2.4  virginica
+## 138          6.4         3.1          5.5         1.8  virginica
+## 139          6.0         3.0          4.8         1.8  virginica
+## 140          6.9         3.1          5.4         2.1  virginica
+## 141          6.7         3.1          5.6         2.4  virginica
+## 142          6.9         3.1          5.1         2.3  virginica
+## 143          5.8         2.7          5.1         1.9  virginica
+## 144          6.8         3.2          5.9         2.3  virginica
+## 145          6.7         3.3          5.7         2.5  virginica
+## 146          6.7         3.0          5.2         2.3  virginica
+## 147          6.3         2.5          5.0         1.9  virginica
+## 148          6.5         3.0          5.2         2.0  virginica
+## 149          6.2         3.4          5.4         2.3  virginica
+## 150          5.9         3.0          5.1         1.8  virginica
+```
+
+
+---
+class:    
+
+# Exemplo: Data.frame iris
+
+&lt;img src="img/flores.png" width="170%" style="display: block; margin: auto;" /&gt;
+
+
+---
+class:    
+
+# Funções úteis 
+
+##Para trabalhar com dataframes
+
+- `head()`: mostra as primeiras 6 linhas.
+
+- `tail()`: mostra as últimas 6 linhas.
+
+- `names()`: mostra os nomes das colunas.
+
+- `View()`: mostra o dataframe.
+
+--
+
+
+```r
+head(dataframe_flores)
+```
+
+```
+##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa
+## 3          4.7         3.2          1.3         0.2  setosa
+## 4          4.6         3.1          1.5         0.2  setosa
+## 5          5.0         3.6          1.4         0.2  setosa
+## 6          5.4         3.9          1.7         0.4  setosa
+```
+
+
+---
+class:    
+
+
+# Desafio 4
+
+1) Quantas observações tem o dataframe_flores?&lt;br&gt;&lt;/br&gt;
+
+2) Quais são as variáveis do dataframe_flores?&lt;br&gt;&lt;/br&gt;
+
+3) Visualize o dataframe_flores.
+
+
+---
+class:    
+
+# Desafio 4 - Resposta
+
+1) Quantas observações tem o dataframe_flores?&lt;br&gt;&lt;/br&gt;
+
+```r
+tail(dataframe_flores)
+```
+
+```
+##     Sepal.Length Sepal.Width Petal.Length Petal.Width   Species
+## 145          6.7         3.3          5.7         2.5 virginica
+## 146          6.7         3.0          5.2         2.3 virginica
+## 147          6.3         2.5          5.0         1.9 virginica
+## 148          6.5         3.0          5.2         2.0 virginica
+## 149          6.2         3.4          5.4         2.3 virginica
+## 150          5.9         3.0          5.1         1.8 virginica
+```
+
+2) Quais são as variáveis do dataframe_flores?
+
+
+```r
+names(dataframe_flores)
+```
+
+```
+## [1] "Sepal.Length" "Sepal.Width"  "Petal.Length" "Petal.Width"  "Species"
+```
+
+
+---
+class:    
+
+# Desafio 4 - Resposta
+
+3) Visualize o dataframe_flores.
+
+```r
+View(df)
+```
+
+&lt;img src="img/View_iris.png" width="75%" style="display: block; margin: auto;" /&gt;
+
+
+---
+class:
+
+# Operadores Relacionais
+- Igual a: **==** &lt;br&gt;&lt;/br&gt; 
+- Diferente de: **!=** &lt;br&gt;&lt;/br&gt;
+- Maior que: **&gt;** &lt;br&gt;&lt;/br&gt;
+- Maior ou igual: **&gt;=** &lt;br&gt;&lt;/br&gt;
+- Menor que: **&lt;** &lt;br&gt;&lt;/br&gt;
+- Menor ou igual: **&lt;=** &lt;br&gt;&lt;/br&gt;
+
+
+---
+class:    
+
+# Exemplos de Operadores Relacionais
+
+### Igual a: **==**
+
+```r
+TRUE == TRUE
+```
+
+```
+## [1] TRUE
+```
+
+```r
+TRUE == FALSE
+```
+
+```
+## [1] FALSE
+```
+
+
+---
+class:    
+
+# Exemplos de Operadores Relacionais
+
+### Diferente de **!=**
+
+```r
+TRUE != TRUE
+```
+
+```
+## [1] FALSE
+```
+
+```r
+TRUE != FALSE
+```
+
+```
+## [1] TRUE
+```
+
+
+---
+class:
+
+# Exemplos de Operadores Relacionais
+
+### Menor que: **&lt;**
+
+```r
+3 &lt; 5
+```
+
+```
+## [1] TRUE
+```
+
+--
+
+### Menor ou igual que: **&lt;=**
+
+```r
+3 &lt;= 5
+```
+
+```
+## [1] TRUE
+```
+
+```r
+5 &lt;= 5
+```
+
+```
+## [1] TRUE
+```
+
+
+---
+class:
+
+# Exemplos de Operadores Relacionais
+
+### Maior que: **&gt;**
+
+```r
+10 &gt; 10
+```
+
+```
+## [1] FALSE
+```
+
+--
+
+### Maior ou igual que: **&gt;=**
+
+```r
+10 &gt;= 10
+```
+
+```
+## [1] TRUE
+```
+
+
+---
+class:
+
+
+# Operadores Lógicos
+
+- E: **&amp;** &lt;br&gt;&lt;/br&gt;
+Será verdadeiro se todas as condições forem verdadeiras (TRUE) ao mesmo tempo
+
+- OU: **|**&lt;br&gt;&lt;/br&gt;
+Será verdadeiro se pelo menos uma das condições for verdadeira (TRUE)
+
+- Negação: **!** &lt;br&gt;&lt;/br&gt;
+
+
+---
+class:
+
+# Exemplos de Operadores Lógicos
+
+### E: **&amp;**
+
+
+```r
+condicao1 &lt;- 5
+
+condicao1 &gt;= 3 &amp; condicao1 &lt;=7
+```
+
+```
+## [1] TRUE
+```
+
+--
+
+
+```r
+condicao2 &lt;- 2
+
+condicao2 &gt;= 3 &amp; condicao2 &lt;= 7
+```
+
+```
+## [1] FALSE
+```
+
+
+---
+class:
+
+# Exemplos de  Operadores Lógicos
+
+### OU: **|**
+
+
+
+```r
+condicao2 &lt;- 2
+
+condicao2 &gt;= 3 | condicao2 &lt;=7
+```
+
+```
+## [1] TRUE
+```
+
+--
+
+
+```r
+condicao3 &lt;- 1
+
+condicao3 &gt;= 3 | condicao3 == 0
+```
+
+```
+## [1] FALSE
+```
+
+
+---
+class:
+
+# Exemplos de Operadores Lógicos
+
+### Negação: **!**
+
+
+```r
+condicao4 &lt;- 6
+
+!(condicao4 &lt; 4)
+```
+
+```
+## [1] TRUE
+```
+
+---
+class:
+
+
+# NA
+
+- **NA** representa um valor desconhecido. 
+
+
+```r
+NA &gt; 5
+```
+
+```
+## [1] NA
+```
+
+--
+
+
+```r
+10 == NA
+```
+
+```
+## [1] NA
+```
+
+--
+
+
+```r
+NA + 5
+```
+
+```
+## [1] NA
+```
+
+--
+
+
+```r
+NA == NA
+```
+
+```
+## [1] NA
+```
+
+- **is.na()** é a função que testa se um objeto é NA.
+
+
+---
+class:    
+
+# Índices 
+
+- Indicam a posição do elemento no objeto.&lt;br&gt;
+
+- Inicia-se a contagem do índice pela posição do primeiro elemento do objeto,
+ou seja, pelo número 1.&lt;br&gt;
+
+--
+
+- **Vetores**: característica linear
+
+
+```r
+v &lt;- c(10:25)
+
+v[2]
+```
+
+```
+## [1] 11
+```
+
+--
+
+- **Data Frames**: o primeiro número indica a linha (observação) e o segundo a coluna (variável).
+
+
+```r
+dataframe_flores[145, 2]
+```
+
+```
+## [1] 3.3
+```
+
+---
+class:    
+
+
+# Desafio 5
+
+1) No dataframe_flores, testar se o valor de Petal.Lenght da 5ª observação é igual ao da 6ª observação. E se o valor de Petal.Lenght da 5ª observação é igual ao da 7ª observação.&lt;br&gt;&lt;/br&gt;
+
+
+2) A 10ª observação tem Petal.Width maior ou menor que a seguinte (11ª)? 
+E qual é a espécie da menor?
+
+
+---
+class:    
+
+# Desafio 5 - Resposta
+
+1) No dataframe_flores, testar se o valors de Petal.Lenght da 5ª observação é igual ao da 6ª observação. E se o valor de Petal.Lenght da 5ª observação é igual ao da 7ª observação.
+
+
+```r
+dataframe_flores[5,3] == dataframe_flores[6,3]
+```
+
+```
+## [1] FALSE
+```
+
+```r
+dataframe_flores[5,3] == dataframe_flores[7,3]
+```
+
+```
+## [1] TRUE
+```
+
+
+---
+class:    
+
+# Desafio 5 - Resposta
+
+2) A 10ª observação tem Petal.Width maior ou menor que a seguinte (11ª)? 
+E qual é a espécie da menor?
+
+
+```r
+dataframe_flores[10,4] &lt; dataframe_flores[11,4] # Petal.Width da 10ª linha é menor que da 11ª
+```
+
+```
+## [1] TRUE
+```
+
+```r
+dataframe_flores[10,5]
+```
+
+```
+## [1] setosa
+## Levels: setosa versicolor virginica
+```
+
+
+---
+
+class: center, middle
+
+## Pacotes no R
+
+
+---
+class:    
+
+# Pacotes
+
+**Pacotes** são coleções de funções, dados e documentação que estendem as capacidades do `R` básico.
+
+Eles precisam ser instalados e carregados.
+
+&lt;center&gt;&lt;img src="img/icon-packages.png" style="width: 45%"&gt;&lt;/center&gt;
+
+
+---
+class:    
+
+# Instalar Pacotes:
+
+- Via CRAN: install.packages("nome-do-pacote").
+
+
+```r
+install.packages("tidyverse")
+```
+
+- Via Github: devtools::install_github("nome-do-repo/nome-do-pacote").
+
+
+```r
+devtools::install_github("tidyverse/dplyr")
+```
+
+
+---
+class:    
+
+# Carregar pacotes:
+
+- library(nome-do-pacote)
+
+
+```r
+library(tidyverse)
+```
+
+
+---
+class:    
+
+# Dicas sobre Pacotes
+
+1. Você só precisa instalar o pacote uma vez, mas precisa carregá-lo sempre que começar uma nova sessão;
+
+2. Para instalar o pacote use as aspas;  
+
+3. Para carregar o pacote, **não** utilize as aspas.
+
+
+---
+class:    
+
+# Pacotes - CRAN Task View
+
+Relação de pacotes encontrados no CRAN por áreas de interesse.
+
+- [CRAN Task View](https://cran.r-project.org/web/views/)
+
+&lt;img src="img/cran_task_view.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+
+---
+class: center, middle
+
+
+## Tidyverse
+
+
+---
+class:
+
+# O Tidyverse
+
+É uma coleção de pacotes `R` projetados para a ciência de dados.
+Todos os pacotes compartilham uma mesma filosofia de desenvolvimento, 
+sintaxe e estruturas de dados.
+
+&lt;img src="img/tidyverse_packages.png" width="65%" style="display: block; margin: auto;" /&gt;
+
+
+---
+class:
+
+# Pacotes do Tidyverse
+
+- **readr**: leitura dos dados &lt;br&gt;&lt;/br&gt;
+- **tidyr**: arruma os dados &lt;br&gt;&lt;/br&gt;
+- **dplyr**: manipulação de dados &lt;br&gt;&lt;/br&gt;
+- **tibble**: dataframes moderno, mais simples de manipular &lt;br&gt;&lt;/br&gt;
+- **magrittr**: facilita a escrita e leitura do código &lt;br&gt;&lt;/br&gt;
+- **ggplot2**: cria gráficos &lt;br&gt;&lt;/br&gt;
+- **stringr**: trabalha com strings &lt;br&gt;&lt;/br&gt;
+- **forcats**: trabalha com fatores &lt;br&gt;&lt;/br&gt;
+- **lubridate**: trabalha com datas &lt;br&gt;&lt;/br&gt;
+- **purrr**: ferramentas para programação funcional, trabalha com funções e vetores
+
+---
+class:
+
+
+# O operador %&gt;%, o Pipe
+
+Imagine uma receita que tenha as instruções:
+- junte os ingredientes;
+- misture;
+- leve ao forno.
+
+--
+
+Na forma usual do R (*R Base* ou *R Básico*), essas instruções provavelmente seriam assim:
+
+**forno(misture(junte(ingredientes)))**
+
+Dessa forma temos que pensar “de dentro para fora”, seguindo os parênteses.
+Porém, o primeiro comando que lemos é forno, mas esta será a última operação a ser realizada.
+
+--
+
+O operador pipe muda a sintaxe para facilitar a leitura, que ficará assim:
+
+**ingredientes %&gt;% junte %&gt;% misture %&gt;% forno**
+
+É mais intuitivo!
+
+&lt;!---
+Formas de pensar:
+um operador que efetua as operações à direita nos valores que estão à esquerda.
+um operador que passa o que está à esquerda como argumento para a operação da direita.
+--&gt;
+
+---
+
+class:    
+
+# Dica
+
+##Seu terceiro "atalho" no R:
+
+
+`CTRL` + `SHIFT` + `M` gera o operador pipe **%&gt;%**
+
+&lt;center&gt;&lt;img src="img/S5e27_T.V._typing.gif"&gt;&lt;/center&gt; 
+
+---
+
+class:    
+
+# Em casa...
+
+Usando o RStudio instalado no computador:
+
+- Instale o pacote `tidyverse`:
+
+
+```r
+install.packages("tidyverse")
+```
+
+- OBS: Usando RStudio Cloud (como na aula) não é necessário realizar estes passos.
+
+
+---
+class:    
+
+# Para aprender mais &amp; Referências:
+
+- [Software Carpentry](https://software-carpentry.org/lessons/) &lt;br&gt;&lt;/br&gt;
+- [Laboratório de Programação Orientada a Objetos - Parte 1](https://pt.coursera.org/learn/lab-poo-parte-1) &lt;br&gt;&lt;/br&gt;
+- [Livro `R` for Data Science](https://r4ds.had.co.nz) &lt;br&gt;&lt;/br&gt;
+- [Material do Curso-R](https://www.curso-r.com/material/) &lt;br&gt;&lt;/br&gt;
+- [Repositório RLadies São Paulo](https://github.com/rladies/meetup-presentations_sao-paulo) &lt;br&gt;&lt;/br&gt;
+- [R-Bloggers](https://www.r-bloggers.com) &lt;br&gt;&lt;/br&gt;
+
+
+---
+class:center
+
+# Agradecimentos
+
+Beatriz Milz 
+&lt;img src="img/bea-milz.jpg" width="20%" style="display: block; margin: auto;" /&gt;
+
+Capítulo RLadies São Paulo
+&lt;img src="img/rlogos/r-ladies-sp.png" width="20%" style="display: block; margin: auto;" /&gt;
+
+Apresentação feita com [RMarkdown](https://rmarkdown.rstudio.com/) e [Xaringan](https://github.com/yihui/xaringan), &lt;br&gt;
+com o tema `metropolis` modificado por Bea Milz e Haydee Svab
+
+
+---
+class: middle
+
+&lt;center&gt;&lt;img src="img/if_you_want_to_go_fast_go_alone.jpg" style="width: 50%"&gt;&lt;/center&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="libs/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<style>
+  .logo {
+/*    background-image: url(img/rainbow.png); */
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+    width: 50px;
+    height: 128px;
+    z-index: 0;
+  }
+</style>
+  
+  <script>
+  document
+.querySelectorAll(
+  '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+  // ':not(.inverse)' +
+    ':not(.hide-logo)'
+)
+.forEach(el => {
+  el.innerHTML += '<div class="logo"></div>';
+});
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

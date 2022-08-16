@@ -1,0 +1,1757 @@
+---
+title: "<center><img src= 'img/hexlogorladies.jpeg' width = '30%' alt='R-Ladies Logo'></br></center> "
+subtitle: "R-Ladies São Paulo <BR> Curso Básico de R"
+author: "08/02/2020"
+encoding: "UTF-8"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    chakra: libs/remark-latest.min.js
+    css: [default, "css/metropolis.css", "css/metropolis-fonts.css", "css/footer.css"]
+    includes:
+      after_body: html/insert-logo.html
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+# Para exportar em PDF: pagedown::chrome_print("index.html", timeout = 600)
+# knit: pagedown::chrome_print
+---
+layout: true
+  
+<div class="my-footer"><span>
+
+
+<a href="https://www.meetup.com/pt-BR/R-Ladies-Sao-Paulo">Meetup</a> |
+<a href="https://twitter.com/RLadiesSaoPaulo">Twitter</a> | 
+<a href="http://instagram.com/RLadiesSaoPaulo">Instagram</a> |
+<a href="http://facebook.com/RLadiesSaoPaulo">Facebook</a> |
+<a href="https://github.com/rladies/meetup-presentations_sao-paulo">GitHub</a> |
+<a href="http://bit.ly/2020-2-rladies">bit.ly/2020-2-rladies</a>
+
+
+</span></div> 
+---
+class:
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+
+knitr::opts_chunk$set(fig.align = "center", message=FALSE, warning=FALSE)
+
+library(tidyverse)
+
+```
+
+# Pré-requisitos
+
+## - `R` e `RStudio` instalados no seu notebook 
+
+```{r, echo=FALSE, out.width="40%"}
+knitr::include_graphics("img/rlogos/rstudio-r.jpg")
+```
+
+## <center><b>OU</b></center> 
+
+## - `RStudio` Cloud
+
+- Através do link: [https://rstudio.cloud/project/876850](https://rstudio.cloud/project/876850)
+
+
+```{r, echo=FALSE, out.width="40%"}
+knitr::include_graphics("img/rstudiocloud.PNG")
+```
+
+
+---
+class:
+
+# Usando a `RStudio` Cloud
+- Exemplo de como acessar o projeto (GIF):
+
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics("img/gif-rstudiocloud.gif")
+```
+
+
+- Importante: Quando aparecer na sua tela, clique em **"Save a permanent copy"**.
+---
+class:
+
+# Programação
+
+## Manhã
+- O que é um algoritmo?
+
+- O que é o R?
+
+- Introdução ao RStudio
+
+- Boas Práticas de Programação
+
+- R Básico
+
+---
+class:
+
+# Programação
+
+## Tarde
+- Introdução ao Pacote Tidyverse
+
+- O Operador Pipe
+
+- Visualização de Data Frames no RStudio
+
+- Introdução ao Pacote dplyr
+
+- Para aprender mais
+
+---
+class:    
+
+# Cronograma da manhã
+
+- O que é um algoritmo?
+
+- O que é o R?
+
+- Introdução ao RStudio
+
+- Boas Práticas de Programação
+
+- Fundamentos de R
+
+
+---
+class:    
+
+
+# E lá vamos nós!
+
+<center><img src="img/S5e27_T.V._typing.gif"></center> 
+
+---
+class: center, middle
+
+## `R` Básico
+
+---
+class:    
+
+
+# `R` como calculadora
+
+- O `R` permite realizar muitas operações aritméticas em seu console!
+
+```{r}
+2 + 5    # adição
+
+9 - 4    # subtração
+
+5 * 2    # multiplicação
+
+7 / 5    # divisão
+```
+
+
+- `CTRL + ENTER`: executa a linha selecionada no script.
+
+
+---
+class:    
+
+
+# `R` como calculadora
+
+```{r}
+9 %% 4   # resto da divisão de 9 por 4
+
+7 %/% 4  # parte inteira da divisão de 7 por 4
+
+8 ^ 2    # potenciação
+
+sqrt(1024) # radiciação
+```
+
+A ordem matemática das operações também vale no R.
+
+---
+class:    
+
+
+# Funções matemáticas
+
+```{r}
+sin(1)  # funções trigonométricas
+
+log(1)  # logaritmo natural (base e)
+
+log10(10) # logaritmo na base 10
+
+exp(0.5) # e^(1/2)
+
+```
+
+Fonte: [SW Carpentry](http://swcarpentry.github.io/r-novice-gapminder/01-rstudio-intro/index.html)
+
+---
+class:    
+
+
+# Desafio 1
+
+Haydée quer contabilizar quantas pessoas participaram dos meetups das RLadies São Paulo em 2019. Ela contabilizou o número de pessoas que participaram em cada evento: 
+
+1. Fevereiro, Outubro e Novembro - 60 pessoas cada
+1. Abril e Agosto - 30 pessoas cada
+1. Março, Maio e Julho - 20 pessoas cada 
+1. Junho, Setembro e Dezembro - 45 pessoas cada  
+
+Quantas pessoas participaram dos meetups das RLadies em 2019? 
+
+---
+class:    
+
+
+# Desafio 1 - Resposta
+
+Haydée quer contabilizar quantas pessoas participaram dos meetups das RLadies São Paulo em 2019. Ela contabilizou o número de pessoas que participaram em cada evento:
+
+1. Fevereiro, Outubro e Novembro - 60 pessoas cada
+1. Abril e Agosto - 30 pessoas cada
+1. Março, Maio e Julho - 20 pessoas cada 
+1. Junho, Setembro e Dezembro - 45 pessoas cada  
+
+Quantas pessoas participaram dos meetups das RLadies em 2019? 
+
+```{r}
+3*60 + 2*30 + 3*20 + 3*45
+```
+
+---
+class:    
+
+
+# O que é um objeto?
+- Ao se desenvolver um projeto, você irá trabalhar com diversos tipos de arquivos, além de informações que serão repetidas ao longo do script.
+
+- Para reutilizar essas informações ao longo do script utilizamos o que chamamos de **objeto**
+
+- Um objeto retém e representa um valor ou expressão
+
+```{r echo=FALSE, fig.align='center', out.width="40%"}
+knitr::include_graphics("img/ran.jpg")
+```
+
+---
+class:    
+
+
+# Atribuindo valor a um objeto no R
+
+- Para atribuir um valor a um objeto no R, utilizamos o operador **<-**  <br></br>
+
+- O atalho ALT + **-** gera o operador **<-** <br></br>
+
+- Todas as declarações em `R` onde são criados objetos atribuindo-se valores a elas, têm a mesma forma:  
+
+<center><b>nome_do_objeto <- valor<b></center>
+
+- Atalho: `ALT` + `-`: cria o `<-` sinal de atribuição.
+
+
+---
+class:    
+
+# Exemplos 
+## Objetos e atribuição de valores
+
+```{r}
+nome_empregado <- "Tom Cruise de Souza e Silva"
+nome_empregado
+horas_trabalhadas <- 160
+horas_trabalhadas
+```
+
+
+---
+class:    
+
+# Exemplos 
+## Objetos e atribuição de valores
+
+```{r}
+salario <- 3984.23
+salario
+ativo <- TRUE
+ativo
+```
+---
+class:    
+
+
+# Nomes de objetos
+- Os nomes devem começar com uma letra. Podem conter letras, números, _ e .<br></br>
+
+- Recomendação do autor do livro `R` For Data Science: **usar_snake_case**, ou seja, palavras escritas em minúsculo separadas pelo underscore (_).<br></br>
+
+- O `R` é *case sensitive*, isto é, faz a diferenciação entre as letras minúsculas e maiúsculas. Portanto, um objeto chamado *teste* é diferente de uma outro objeto chamada *Teste*.
+
+---
+class:    
+
+
+# Desafio 2
+1) Crie objetos para os casos abaixo:
+
+- Restaurante com valor Rodízio Japonês
+- Conta a pagar com valor 40,50
+- Dinheiro na carteira com valor 60
+
+2) Quanto receberei de troco, se eu pagar a conta do restaurante com o dinheiro que tenho na carteira? Use os objetos criados anteriormente. 
+
+---
+class:    
+
+
+# Desafio 2 - Resposta
+1) Crie objetos para os casos abaixo: 
+
+```{r}
+restaurante <- "Rodizio Japones"
+restaurante
+conta <- 40.50
+conta
+dinheiro <- 60
+dinheiro
+
+```
+
+---
+class:    
+
+
+# Desafio 2 - Resposta
+2) Quanto receberei de troco, se eu pagar a conta do restaurante com o dinheiro que tenho na carteira? Use os objetos criados anteriormente. 
+
+```{r}
+
+dinheiro - conta
+
+```
+
+---
+class:    
+
+
+# Classes Básicas ou Atômicas do R
+
+São os tipos básicos de dados que podem ser representados na linguagem R. É neles que guardamos as informações que necessitamos para um algoritmo.
+
+- **Integer**: números inteiros <br></br>
+- **Numeric**: números racionais <br></br>
+- **Complex**: números complexos (raramente usados para Análise de Dados) <br></br>
+- **Logical**: TRUE, FALSE ou NA <br></br>
+- **Factor**: variavéis categóricas <br></br>
+- **Character**: texto <br></br>
+
+---
+class:    
+
+
+# Exemplos: integer
+
+```{r}
+10L # Um número inteiro pode ser representado acompanhado de um L
+2019L
+```
+
+---
+class:    
+
+
+# Exemplos: numeric
+
+```{r}
+10
+2019
+5.44
+```
+
+---
+class:    
+
+
+# Exemplos: complex
+```{r}
+4 + 9i
+```
+
+---
+class:    
+
+
+# Exemplos: logical
+```{r}
+TRUE
+FALSE
+```
+
+---
+class:    
+
+
+# Exemplos: factor
+
+```{r}
+escolaridade <- c("Médio", "Superior", "Fundamental", "Fundamental", "Médio")
+fator <- as.factor(escolaridade)
+fator
+```
+
+A função as.factor() criou um objeto do tipo factor.
+
+Na linha *Levels* aparecem os rótulos do fator.
+
+Essa classe de dados pode ser trabalhada com o pacote **forcats**.
+
+---
+class:    
+
+
+# Exemplos: character
+
+```{r}
+"escola"
+"2019"
+"I love pinschers."
+```
+
+---
+class:    
+
+
+# Operações simples com strings
+
+```{r}
+animal <- "Camaleao"
+#letras maiúsculas
+toupper(animal)
+#letras minúsculas
+tolower(animal)
+#número de caracteres
+nchar(animal)
+```
+
+---
+class:    
+
+
+# Função class
+
+A função **class** mostra a classe de um objeto.
+
+```{r}
+nome_filme <- "Bohemian Rhapsody"
+class(nome_filme)
+ano_inteiro <- 2018L
+class(ano_inteiro)
+ano <- 2018
+class(ano)
+```
+
+---
+class:    
+
+
+# Função class
+
+```{r}
+motor <- 1.5
+class(motor)
+passou_enem <- TRUE
+class(passou_enem)
+```
+
+---
+class:    
+
+
+# Conversão de classes
+
+Podemos forçar um objeto a ser de uma classe específica com as funções:  
+- as.character() <br></br>
+- as.numeric() <br></br>
+- as.integer() <br></br>
+- as.logical() <br></br>
+
+---
+class:    
+
+
+# Conversão de classes
+** Exemplos de conversão de classes **
+
+```{r}
+vetor <- 0:9
+vetor
+class(vetor)
+
+vetor_numeric <- as.numeric(vetor)
+vetor_numeric
+class(vetor_numeric)
+```
+
+---
+class:    
+
+
+# Conversão de classes
+** Exemplos de conversão de classes **
+
+
+```{r}
+vetor_logical <- as.logical(vetor)
+vetor_logical
+class(vetor_logical)
+```
+
+---
+class:    
+
+
+# Desafio 3
+
+Converta o objeto Conta criado anteriormente para character. Agora cheque sua classe. O que acontece com seu valor? Como explica o que aconteceu?
+
+---
+class:    
+
+
+# Desafio 3 - Resposta
+
+Converta o objeto Conta criado anteriormente para character. Agora cheque sua classe. O que acontece com seu valor? 
+
+```{r}
+conta
+```
+
+```{r}
+as.character(conta)
+```
+
+---
+class:    
+
+
+# Desafio 3 - Resposta
+
+Converta o objeto Conta criado anteriormente para character. Agora cheque sua classe. O que acontece com seu valor? 
+
+```{r}
+conta
+class(conta)
+```
+
+```{r}
+as.character(conta)
+```
+
+```{r}
+conta <-  as.character(conta)
+```
+
+```{r}
+class(conta)
+```
+---
+class:    
+
+
+# Tipos de objetos
+
+Os tipos dos objetos são definidos a partir dos valores armazenados neles:
+
+- **Vector**: armazena elementos de mesma classe. <br></br>   
+- **Matrix**: vetores de duas dimensões que armazenam elementos de mesma classe. <br></br>
+- **List**: tipo especial de vetor que aceita elementos de classes diferentes. <br></br>
+- **Data.frame**: são tabelas de dados com linhas e colunas, como uma tabela do Excel. Como são listas, essas colunas podem ser de classes diferentes.
+
+---
+class:    
+
+
+# Exemplo: Vector
+
+A função c() cria um vetor.
+```{r}
+semestre1 <- c("janeiro", "fevereiro", "março", "abril", "maio")
+notas_alunos <- c(5, 6.5, 10, 0.5, 2.75)
+```
+
+É possível realizar operações com vetores.
+
+```{r}
+vetor1 <- 1:5
+vetor1 / 5   # objeto vetor1 dividido por 5
+```
+
+```{r}
+vetor2 <- 6:10
+vetor1 * vetor2
+```
+
+---
+class:    
+
+
+# Exemplo: Matrix
+
+A função matrix() cria uma matriz.
+```{r}
+primeira_matriz <- matrix(1:8, nrow = 2, ncol = 4)
+primeira_matriz
+```
+
+A função dim() retorna a dimensão do objeto (linha e coluna).
+```{r}
+dim(primeira_matriz)
+```
+
+---
+class:    
+
+
+# Exemplo: List
+
+A função list() cria uma lista.
+```{r}
+wizards <- list("Harry Potter", 18, TRUE, c("Hermione Granger", "Rony Weasley"))
+class(wizards)
+```
+
+A função is.list() verifica se o objeto é ou não uma lista.
+
+```{r}
+harry_friends <- c("Hermione Granger", "Rony Weasley")
+class(harry_friends)
+is.list(harry_friends)
+```
+
+---
+class:    
+
+
+# Exemplo: Data.frame
+
+
+A função head() mostra as primeiras 6 linhas do dataframe.
+```{r}
+data(iris)
+
+df <- iris
+
+head(df)
+```
+
+---
+class:    
+
+
+# Funções úteis 
+
+##Para trabalhar com dataframes
+
+- `tail()`: mostra as últimas 6 linhas.
+
+- `names()`: mostra os nomes das colunas.
+
+- `View()`: mostra o dataframe.
+
+---
+class:    
+
+
+# Desafio 4
+
+1) Quantas observações tem o data.frame iris?<br></br>
+2) Quais são as variáveis do data.frame iris?<br></br>
+3) Visualize o dataframe iris.
+
+---
+class:    
+
+
+# Desafio 4 - Resposta
+
+1) Quantas observações tem o data.frame iris?<br></br>
+```{r}
+tail(df)
+```
+2) Quais são as variáveis do data.frame iris?
+
+```{r}
+names(df)
+```
+---
+class:    
+
+
+# Desafio 4 - Resposta
+
+3) Visualize o dataframe iris.
+```{r eval=FALSE}
+View(df)
+```
+
+```{r echo=FALSE, fig.align='center', out.width="75%"}
+knitr::include_graphics("img/View_iris.png")
+```
+
+---
+class:
+
+
+# Operadores Relacionais
+- Igual a: **==** <br></br> 
+- Diferente de: **!=** <br></br>
+- Maior que: **>** <br></br>
+- Maior ou igual: **>=** <br></br>
+- Menor que: **<** <br></br>
+- Menor ou igual: **<=** <br></br>
+
+---
+class:    
+
+
+# Exemplos de Operadores Relacionais
+
+Igual a: **==**
+```{r}
+TRUE == TRUE
+
+TRUE == FALSE
+```
+---
+class:    
+
+
+# Exemplos de Operadores Relacionais
+
+Diferente de **!=**
+```{r}
+TRUE != TRUE
+
+TRUE != FALSE
+```
+---
+class:
+
+# Exemplos de Operadores Relacionais
+
+Menor de: **<**
+```{r}
+3 < 5
+```
+
+Maior ou igual de: **>=**
+```{r}
+10 >= 10
+```
+
+Maior de: **>=**
+```{r}
+10 > 10
+```
+
+---
+class:
+
+
+# Operadores Lógicos
+
+- E: **&** <br></br>
+Será verdadeiro se os dois forem TRUE 
+
+```{r}
+x <- 5
+
+ x >= 3 & x <=7
+```
+```{r}
+y <- 2
+
+ y >= 3 & y <= 7
+```
+---
+class:
+
+
+# Operadores Lógicos
+
+- OU: **|**<br></br>
+Será verdadeiro se um dos dois forem TRUE
+
+```{r}
+y <- 2
+
+ y >= 3 | y <=7
+```
+
+```{r}
+y <- 1
+
+ y >= 3 | y == 0
+```
+---
+class:
+
+
+# Operadores Lógicos
+
+- Negação: **!** <br></br>
+
+```{r}
+(!x < 4)
+```
+
+---
+class:
+
+
+# NA
+
+Uma característica importante do R que pode dificultar a comparação são os valores ausentes ou **NAs** (não disponíveis). 
+
+**NA** representa um valor desconhecido. 
+
+---
+class:
+
+
+# NA
+
+Quase qualquer operação envolvendo um valor desconhecido também será desconhecido:
+
+```{r}
+NA > 10
+10 == NA
+NA + 10
+NA / 2
+```
+
+---
+class:
+
+
+# NA
+
+E o mais confuso:
+
+```{r}
+NA == NA
+```
+
+<br></br>
+
+**is.na()** é a função que testa se um objeto é NA.
+
+---
+class:    
+
+
+# Índices 
+
+- Indicam a posição do elemento no objeto.<br><br>
+- Inicia-se a contagem do índice pela posição do primeiro elemento do objeto, ou seja, pelo número 1.<br><br>
+
+*Vetores*: característica linear
+
+```{r}
+v <- c(10:25)
+
+v[2]
+```
+
+*Data Frames*: o primeiro número indica a linha (observação) e o segundo a coluna (variável).
+
+```{r}
+df[145, 2]
+```
+
+---
+class:    
+
+
+# Desafio 5
+
+1) No data.frame iris, testar se o Petal.Lenght da 5ª observação é igual ao da 6ª observação. E se o Petal.Lenght da 5ª observação é igual ao da 7ª observação.<br></br>
+
+
+2) A 10ª observação tem Petal.Width maior ou menor que a seguinte (11ª)? 
+E qual é a espécie da menor?
+
+---
+class:    
+
+
+# Desafio 5 - Resposta
+
+1) No data.frame iris, testar se o Petal.Lenght da 5ª observação é igual ao da 6ª observação. E se o Petal.Lenght da 5ª observação é igual ao da 7ª observação.
+
+```{r}
+df[5,3] == df[6,3]
+df[5,3] == df[7,3]
+```
+
+---
+class:    
+
+
+# Desafio 5 - Resposta
+
+2) A 10ª observação tem Petal.Width maior ou menor que a seguinte (11a)? 
+E qual é a espécie da menor?
+
+```{r}
+df[10,4] < df[11,4] # Petal.Width da 10ª linha é menor que da 11ª
+
+df[10,5]
+```
+
+---
+class:    
+
+
+# Pacotes no R
+
+**Pacotes** são coleções de funções, dados e documentação que estendem as capacidades do `R` básico.
+
+Eles precisam ser instalados e carregados.
+
+<center><img src="img/icon-packages.jpg" style="width: 45%"></center>
+
+---
+class:    
+
+
+## Instalação de Pacotes:
+
+- Via CRAN: install.packages("nome-do-pacote").
+
+```{r, include=TRUE, eval = FALSE }
+install.packages("tidyverse")
+```
+
+- Via Github: devtools::install_github("nome-do-repo/nome-do-pacote").
+
+```{r, include=TRUE, eval = FALSE }
+devtools::install_github("tidyverse/dplyr")
+```
+
+
+## Carregar pacotes:
+
+- library(nome-do-pacote)
+
+```{r, eval=TRUE, message=FALSE}
+library(tidyverse)
+```
+
+---
+class:    
+
+
+# Dicas sobre Pacotes
+
+1. Você só precisa instalar o pacote uma vez, mas precisa carregá-lo sempre que começar uma nova sessão;
+
+2. Para instalar o pacote use as aspas;  
+
+3. Para carregar o pacote, **não** utilize as aspas.
+
+---
+class:    
+
+
+# Pacotes - CRAN Task View
+
+Relação de pacotes encontrados no CRAN por áreas de interesse.
+
+- [CRAN Task View](https://cran.r-project.org/web/views/)
+
+```{r echo=FALSE, fig.align='center', out.width="100%"}
+knitr::include_graphics("img/cran_task_view.png")
+```
+
+---
+class:
+
+# Vamos nos preparar para a tarde?
+
+Para quem está usando o RStudio instalado no computador:
+
+- No seu projeto, crie uma pasta chamada `data`
+
+- Fazer o download deste arquivo: [`titanic`](https://raw.githubusercontent.com/beatrizmilz/2020-R-Ladies-SP-Basico/master/docs/data/titanic.csv) ou em [bit.ly/titanic-rladies](http://bit.ly/titanic-rladies)
+
+- Salve este arquivo na pasta `/data`  <br></br>
+
+- Instale o pacote `tidyverse`:
+
+
+```{r, include=TRUE, eval = FALSE }
+install.packages("tidyverse")
+```
+
+- OBS: Caso esteja usando RStudio Cloud, não é necessário realizar estes passos, pois já foram feitos anteriormente.
+---
+class:    
+
+# Cronograma da tarde
+
+- Introdução ao Pacote Tidyverse
+
+- O Operador Pipe
+
+- Visualização de Data Frames no RStudio
+
+- Introdução ao Pacote dplyr
+
+- Para aprender mais
+
+
+---
+class: center, middle
+
+## Tidyverse
+
+---
+class:
+
+# O Tidyverse
+
+É uma coleção de pacotes `R` projetados para a ciência de dados. Todos os pacotes compartilham uma mesma filosofia de desenvolvimento, sintaxe e estruturas de dados.
+
+```{r echo=FALSE, fig.align='center', out.width="90%"}
+knitr::include_graphics("img/Tidyverse_packages.png")
+```
+
+---
+class:
+
+
+# Pacotes do Tidyverse
+
+- **ggplot2**: cria gráficos <br></br>
+- **dplyr**: manipulação de dados <br></br>
+- **tidyr**: arruma os dados <br></br>
+- **readr**: leitura dos dados <br></br>
+- **purrr**: ferramentas para programação funcional, trabalha com funções e vetores <br></br>
+- **tibble**: dataframes moderno, mais simples de manipular <br></br>
+- **magrittr**: facilita a escrita e leitura do código <br></br>
+- **stringr**: trabalha com strings <br></br>
+- **forcats**: trabalha com fatores <br></br>
+- **lubridate**: trabalha com datas
+
+
+
+---
+class:
+
+
+# O operador %>%, o Pipe
+
+Imagine uma receita que tenha as instruções: junte os ingredientes, misture e leve ao forno. Na forma usual do R, essas instruções provavelmente seriam assim:
+
+
+**forno(misture(junte(ingredientes)))**
+
+
+Dessa forma temos que pensar “de dentro para fora”. O primeiro comando que lemos é forno, sendo que essa é a última operação que será realizada.
+
+Com o operador pipe seria algo assim:
+
+
+**ingredientes %>% junte %>% misture %>% forno**
+
+
+É mais intuitivo!
+  
+---
+class:
+
+
+# O operador %>%, o Pipe
+
+Para ficar mais fácil: pense no Pipe %>% como um operador que efetua as operações à direita nos valores que estão à esquerda.
+
+Ou ainda, o operador %>%  passa o que está à esquerda como argumento para a operação da direita.
+
+**Atalho**: CTRL + SHIFT + M
+
+---
+class:    
+
+# Dataframes  - Tidy data
+
+```{r echo=FALSE, out.width="100%"}
+knitr::include_graphics("img/tidy-1.png")
+```
+
+Fonte: [Data Science with `R` by Garrett Grolemund](http://garrettgman.github.io/tidying/)
+
+---
+class:
+
+
+# Importação de arquivos
+
+Pacote **readr**: funções para ler arquivos texto
+- read_csv
+- read_csv2
+- read_delim
+- read_log
+- read_rds
+
+Pacote **readxl**: função para ler arquivo Excel  
+- read_excel
+
+Pacote **haven**: funções para ler outros softwares estatísticos
+
+- read_sas
+- read_spss
+- read_stata
+
+---
+class:
+
+
+# E lá vamos nós!
+
+<center><img src="img/S5e27_T.V._typing.gif"></center> 
+
+
+
+---
+class:
+
+
+# Importação de arquivos
+
+
+- Iremos importar a base [`titanic`](https://raw.githubusercontent.com/beatrizmilz/2020-R-Ladies-SP-Basico/master/docs/data/titanic.csv):
+
+```{r, message=FALSE}
+library(tidyverse)
+
+# Uma outra opção é carregar somente o(s) pacote(s) que irá utilizar.
+library(dplyr)
+
+# Importa o arquivo csv para o objeto df_titanic
+df_titanic <- read_csv("data/titanic.csv")
+
+```
+
+
+---
+class:
+
+# Import Dataset - RStudio
+
+## Importar CSV - From Text (readr)
+- Exemplo: abrindo uma base csv que já está no computador
+```{r, echo=FALSE, out.width="95%"}
+knitr::include_graphics("img/gif-importar-csv.gif")
+```
+
+---
+class:
+
+# Import Dataset - RStudio
+
+## Importar excel - From Excel
+- Exemplo: abrindo uma base excel que está online
+```{r, echo=FALSE, out.width="95%"}
+knitr::include_graphics("img/gif-importarexcel.gif")
+```
+Site dos dados do exemplo: [Execução orçamentária PMSP](http://orcamento.sf.prefeitura.sp.gov.br/orcamento/execucao.php)
+---
+class:
+
+
+# View e glimpse
+
+- Para visualizar um objeto: **View**(nome-do-objeto)
+
+- **glimpse()**: mostra informações como o número de observações (linhas) e variáveis (colunas), o nome das colunas, o tipo delas e os primeiros dados de cada coluna.
+
+```{r}
+df_titanic %>% glimpse()
+```
+
+
+
+---
+class:
+
+
+# dplyr
+
+A ideia do pacote **dplyr** é tornar a manipulação de dados explícita utilizando verbos que indicam a ação a ser realizada. 
+
+O encadeamento dos verbos com o banco de dados é realizado com o operador **pipe**: **%>%**
+
+O dplyr foi desenhado para trabalhar com o operator pipe **%>%** do pacote magritrr.
+
+---
+class:
+
+# Os 6 verbos do dplyr 
+
+- **filter**(): seleciona linhas <br></br>
+- **arrange**(): ordena de acordo com uma ou mais colunas <br></br>
+- **select**(): seleciona colunas <br></br>
+- **mutate**(): cria/modifica colunas <br></br>
+- **summarise**(): sumariza/agrega colunas <br></br>
+- **group_by**(): agrupa colunas
+
+
+---
+class:
+
+
+# filter
+
+Selecionar linhas da base de dados.
+
+OBS: **Tibble** é uma releitura moderna do data.frame.
+
+```{r}
+df_titanic %>% filter(sobreviveu == "sim") # Seleciona os sobreviventes.
+```
+
+
+
+---
+class:
+
+
+# filter
+
+```{r, message=FALSE}
+# Cria um objeto e atribui a ele as linhas com os sobreviventes.
+sobreviventes <- df_titanic %>% filter(sobreviveu == "sim")
+
+
+
+# Crianças com menos de 12 anos que sobreviveram.
+criancas_sobreviventes <- df_titanic %>% filter(sobreviveu == "sim" & idade < 12)
+
+
+
+# Embarque realizado nos locais: Southampton ou Queenstow.
+embarque <- df_titanic %>% filter(embarque == "Southampton" |
+                                  embarque == "Queenstow")
+      
+                                                                
+
+# A instrução acima pode ser reescrita com o operador %in%:
+embarque <- df_titanic %>% filter(embarque %in% c("Southampton", "Queenstow"))
+
+```
+
+---
+class:
+
+
+# filter
+
+```{r, message=FALSE}
+# Pessoas sem informação de local de embarque.
+# is.na() - função que retorna TRUE se o valor for NA e FALSE se não for.
+sem_embarque <- df_titanic %>% filter(is.na(embarque))
+
+
+
+# Pessoas que tem "Elizabeth" em qualquer posição do campo nome.
+# str_detect - função que retorna TRUE se detectou o valor dado e 
+# FALSE, caso não tenha encontrado.
+nome <- df_titanic %>% filter(str_detect(nome, "Elizabeth"))
+```
+
+---
+class:
+
+
+# Desafio 1
+
+1) Criar um objeto chamado passageiras que seleciona somente as passageiras.
+
+2) Criar um objeto chamado criancas_Cherbourg que seleciona as crianças com menos de 12 anos que embarcaram na cidade de Cherbourg.
+
+---
+class:
+
+
+# Desafio 1 - Resposta
+
+1) Criar um objeto chamado passageiras que seleciona somente as passageiras.
+
+```{r, message=FALSE}
+passageiras <- df_titanic %>%  filter(sexo == "feminino")
+```
+
+2) Criar um objeto chamado criancas_Cherbourg que seleciona as crianças com menos de 12 anos que embarcaram na cidade de Cherbourg.
+
+```{r, message=FALSE}
+criancas_Cherbourg <- df_titanic %>% filter(idade < 12 & embarque == "Cherbourg")
+```
+
+---
+class:
+
+
+# arrange
+
+Ordenar as linhas da base de dados conforme uma ou mais variáveis.
+
+```{r}
+# Ordena por ordem crescente da coluna nome.
+passageiros_ordenados <- df_titanic %>% arrange(nome)
+passageiros_ordenados
+```
+
+---
+class:
+
+
+# arrange 
+
+É possível ordenar na ordem descrescente e também por mais de uma variável.
+
+```{r}
+# Ordena por ordem decrescente de idade e por ordem crescente de nome.
+passageiros_ordenados <- df_titanic %>% arrange(desc(idade), nome)
+passageiros_ordenados
+```
+---
+class:
+
+#arrange
+
+- É possível também usar outras funções dentro do arrange. como `is.na`
+
+```{r}
+# ordenando pelas variáveis que tem muitos campos vazios ou NA 
+# (neste caso as variáveis são cabine e idade)
+df_titanic %>% arrange(desc(is.na(idade)),
+                       desc(cabine == "")) %>% head()
+```
+
+---
+class:
+
+
+# filter & arrange
+
+```{r}
+# Filtra os sobreviventes homens e ordena por classe.
+df_titanic  %>% 
+  filter(sexo == "masculino" & sobreviveu == "sim") %>% 
+  arrange(classe)
+```
+
+---
+class:
+
+
+# Desafio 2
+
+1) Ordenar os passageiros por ordem decrescente de classe e nomeie o objeto.
+
+2) Ordenar somente as passageiras por ordem de idade e dê um nome para o objeto.
+
+---
+class:
+
+
+# Desafio 2 - Resposta
+
+1) Ordenar os passageiros por ordem decrescente de classe e nomeie o objeto.
+
+```{r}
+passageiros <- df_titanic %>% arrange(desc(classe))
+```
+
+2) Ordenar somente as passageiras por ordem de idade e dê um nome para o objeto.
+
+```{r}
+mulheres <- df_titanic %>% 
+  filter(sexo == "feminino") %>% 
+  arrange(idade)
+```
+
+---
+class:
+
+
+# select
+
+Selecionar colunas (variáveis) da base de dados.
+
+```{r}
+# Seleciona as colunas indicadas.
+df_titanic %>% select(nome, idade, classe, embarque)
+```
+
+---
+class:
+
+
+# select
+
+O select tem várias funções úteis, como por exemplo:
+
+- **starts_with**("cla"): seleciona colunas que começam com "cla" <br></br>
+- **ends_with**("ifa"): seleciona colunas que terminam com "ifa" <br></br>
+- **contains**("ssa"): seleciona colunas que contêm "ssa" <br></br>
+
+---
+class:
+
+
+# select
+
+```{r}
+# Seleciona as colunas que começam com "id".
+df_titanic %>%  select(starts_with("id"))
+```
+
+---
+class:
+
+
+# select
+
+Ao inserir o caracter **-** na frente da coluna, você estará excluindo as colunas da seleção.
+
+```{r}
+df_titanic %>%  select(-id_passageiro, -nome)
+```
+
+---
+class:
+
+
+# Desafio 3
+
+
+1) Criar um objeto para salvar o resultado com as colunas nome, tarifa e classe.
+
+2) Mostrar uma tabela com as tarifas maiores que 50 por ordem decrescente de tarifa e ordem crescente de classe. A tabela não deverá conter os campos irmaos_conjuge, pais_criancas e passagem.
+
+---
+class:
+
+
+
+# Desafio 3 - Resposta
+
+1) Criar um objeto para salvar o resultado com as colunas nome, tarifa e classe.
+
+```{r}
+tarifa <- df_titanic %>% select(nome, tarifa, classe)
+```
+
+
+2) Mostrar uma tabela com as tarifas maiores que 50 por ordem decrescente de tarifa e ordem crescente de classe. A tabela não deverá conter os campos irmaos_conjuge, pais_criancas e passagem.
+
+```{r}
+tarifa_classe <- df_titanic %>% 
+  filter(tarifa > 50) %>% 
+  select(-irmaos_conjuge, -starts_with("p")) %>% 
+  arrange(desc(tarifa), classe)
+```
+
+---
+class:
+
+
+# mutate
+
+Criar ou modificar colunas de uma base de dados.
+
+Supondo que o valor da tarifa no dataset está em libras, e que 1£ = R$ 4.93, vamos descobrir qual é o valor das tarifas em reais.
+
+```{r}
+# Altera a coluna tarifa para o valor da tarifa em reais.
+tarifa_conversao <- df_titanic %>% mutate(tarifa = tarifa * 4.93)
+
+
+
+# Retorna a coluna tarifa para o valor da época.
+tarifa_conversao <- df_titanic %>% mutate(tarifa = tarifa / 4.93)
+```
+
+---
+class:
+
+
+# mutate
+
+```{r}
+# Cria no dataset uma nova variável chamada tarifa_reais.
+tarifa_conversao <- df_titanic %>% mutate(tarifa_real = tarifa * 4.93)
+tarifa_conversao
+```
+
+---
+class:
+
+
+# Desafio 4
+
+Criar uma tabela com um novo campo que contenha a tarifa em dólar seguindo essa cotação: 1£ = $ 1.31.
+Classifique por ordem decrescente de tarifa.
+
+---
+class:
+
+
+# Desafio 4 - Resposta
+
+Criar uma tabela com um novo campo que contenha a tarifa em dólar seguindo essa cotação: 1£ = $ 1.31.
+Classifique por ordem decrescente de tarifa.
+
+```{r}
+tarifa_conversao <- df_titanic %>% 
+  mutate(tarifa_dolar = tarifa * 1.31) %>% 
+  arrange(desc(tarifa))
+```
+
+---
+class:
+
+
+# summarize
+
+Sumariza colunas da base de dados, ou seja, resume os valores das colunas em um só valor,
+podendo ser a média, mediana, min, max, etc.
+
+```{r}
+# Calcula a média da variável idade
+# na.rm = TRUE remove os NAs
+df_titanic %>% summarize(mean(idade, na.rm=TRUE))
+
+```
+
+---
+class:
+
+
+# summarize
+
+```{r}
+# Calcula: número de mulheres, mediana geral da tarifa e número de passageiros.
+# No caso abaixo a função sum() retorna o número de mulheres. 
+# A função n() mostra o número de linhas (em cada grupo) e 
+# costuma ser bastante usada com o summarize.
+df_titanic %>% 
+  summarize(
+    mulheres = sum(sexo == "feminino", na.rm = TRUE),
+    mediana_tarifa = median(tarifa, na.rm = TRUE),
+    num_passageiros = n()
+)
+```
+
+---
+class:
+
+
+# summarize
+
+```{r}
+# Filtra os passageiros homens e calcula a mediana da tarifa.
+df_titanic %>% 
+  filter(sexo == "masculino") %>% 
+  summarize(
+    mediana_tarifa = median(tarifa, na.rm = TRUE)
+)
+```
+
+---
+class:
+
+
+# Desafio 5
+
+1) Calcular a média da tarifa.
+
+2) Filtrar as passageiras mulheres e calcular a mediana da tarifa. 
+
+---
+class:
+
+
+# Desafio 5 - Resposta
+
+1) Calcular a média da tarifa.
+
+```{r}
+media_tarifa <- df_titanic %>% summarize(mean(tarifa, na.rm=TRUE))
+```
+
+2) Filtrar as passageiras mulheres e calcular a mediana da tarifa.
+
+```{r}
+mulheres_tarifa <- df_titanic %>% 
+  filter(sexo == "feminino") %>% 
+  summarize(
+    mediana_tarifa = median(tarifa, na.rm = TRUE)
+)
+```
+
+---
+class:
+
+
+# group_by + summarize
+
+Agrupa as colunas de uma base de dados. 
+
+O group_by é bastante utilizado com o summarize.
+
+```{r}
+# Agrupa pela variável sobreviveu e calcula
+# o número de passageiros por grupo (sim/nao).
+df_titanic %>% 
+  group_by(sobreviveu) %>% 
+  summarize(num_passageiros = n())
+```
+
+---
+class:
+
+
+# group_by + summarize 
+  
+```{r}
+# Agrupa pelo local de embarque e calcula a mediana da tarifa de cada grupo.
+df_titanic %>% 
+  group_by(embarque) %>% 
+  summarize(mediana_tarifa = median(tarifa, na.rm = TRUE))
+```
+
+---
+class:
+
+
+# Desafios 6
+
+1) Criar uma tabela com a quantidade de pessoas por classe.
+
+2) Criar uma tabela com a mediana da tarifa por sexo.
+
+---
+class:
+
+
+# Desafio 6 - Resposta
+
+1) Criar uma tabela com a quantidade de pessoas por classe.
+  
+```{r}
+df_titanic %>% 
+  group_by(classe) %>% 
+  summarize(qtd_classe = n())
+```
+
+---
+class:
+
+
+# Desafio 6  - Resposta
+
+2) Criar uma tabela com a mediana da tarifa por sexo.
+
+```{r}
+df_titanic %>% 
+  group_by(sexo) %>% 
+  summarize(mediana_tarifa = median(tarifa, na.rm = TRUE))
+```
+
+
+---
+class: middle
+
+
+<center><img src="img/if_you_want_to_go_fast_go_alone.jpg" style="width: 50%"></center>
+
+---
+class:    
+
+
+# Para aprender mais
+
+- [Repositório RLadies São Paulo](https://github.com/rladies/meetup-presentations_sao-paulo) <br></br>
+- [Livro `R` for Data Science](https://r4ds.had.co.nz) <br></br>
+- [Software Carpentry](https://software-carpentry.org/lessons/) <br></br>
+- [Material do Curso-R](https://www.curso-r.com/material/) <br></br>
+- [R-Bloggers](https://www.r-bloggers.com) <br></br>
+
+---
+class:    
+
+
+# Referências
+
+- https://r4ds.had.co.nz
+
+- https://www.curso-r.com/material/
+
+- https://www.tidyverse.org
+
+- https://software-carpentry.org/lessons/
+
+- http://brunaw.com/slides/rladies-sp/13-08-2018/meetup.html#1
+
+- https://github.com/MaryMS/2018-11-R-Course-FatecZS
+
+- https://beatrizmilz.github.io/talk/oficina_intro_r_ufabc_2018/
+
+- https://bookdown.org/wevsena/curso_r_tce/curso_r_tce.html
+
+- https://rstudio-pubs-static.s3.amazonaws.com/279878_c7634fb5fe9e40b7abc7c35aa724a2a0.html
+
+
+---
+class:    
+
+
+# Referências
+
+- https://analisereal.com/tag/introducao-a-analise-de-dados-com-o-r-2/
+
+- http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html
+
+
+---
+class:   
+
+# Como saber mais?
+  - Website RLadies Global: [https://rladies.org/](https://rladies.org/)
+  - Twitter: [@RLadiesGlobal](https://twitter.com/rladiesglobal), [@RLadiesSaoPaulo](https://twitter.com/RLadiesSaoPaulo)
+  - Instagram: [@RLadiesSaoPaulo](http://instagram.com/RLadiesSaoPaulo)
+  - Facebook: [@RLadiesSaoPaulo](http://facebook.com/RLadiesSaoPaulo)
+  - MeetUp: [https://www.meetup.com/pt-BR/R-Ladies-Sao-Paulo](https://www.meetup.com/pt-BR/R-Ladies-Sao-Paulo)
+  - Github: [https://github.com/rladies/meetup-presentations_sao-paulo](https://github.com/rladies/meetup-presentations_sao-paulo)
+  - R-Ladies LATAM Blog (Latin America) - Em breve!
+### Não tem capítulo na sua cidade e quer iniciar um?
+<center> Saiba como em <a href="https://rladies.org/about-us/help/"> R-Ladies - How do get involved </a> </center>
+
+
+
+
+- Apresentação feita com [Xaringan](https://github.com/yihui/xaringan), com o tema `metropolis` modificado por [Bea Milz](https://beatrizmilz.com).
