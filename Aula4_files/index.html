@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>index.knit</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="31/08/2022" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/metropolis.css" type="text/css" />
+    <link rel="stylesheet" href="css/metropolis-fonts.css" type="text/css" />
+    <link rel="stylesheet" href="css/footer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# <center>
+<img src= 'img/logo_sesc.jpg' width = '30%' alt='SESC Logo'></br>
+</center>
+]
+.subtitle[
+## Programação em R <BR> para Análise de Dados <BR> Uma Introdução
+]
+.author[
+### 31/08/2022
+]
+
+---
+
+layout: true
+  
+&lt;div class="my-footer"&gt;&lt;span&gt;
+
+
+&lt;a href="https://www.linkedin.com/in/hsvab/"&gt;LinkdIn&lt;/a&gt; |
+&lt;a href="https://twitter.com/hsvab"&gt;Twitter&lt;/a&gt; | 
+&lt;a href="https://www.instagram.com/haydeesvab/"&gt;Instagram&lt;/a&gt; |
+&lt;a href="https://www.facebook.com/haydee.svab/"&gt;Facebook&lt;/a&gt; |
+&lt;a href="https://github.com/hsvab"&gt;GitHub&lt;/a&gt;
+
+
+&lt;/span&gt;&lt;/div&gt; 
+
+
+---
+
+class:
+
+# Agenda do Curso
+
+- Aula 1: Introdução ao R e ao RStudio
+
+- Aula 2: Primeiros passos com R (R base)
+
+- Aula 3: Pacote tidyverse, abertura e manipulação de dados
+
+- **Aula 4: Tratando dados**
+
+- Aula 5: Estatísticas básicas
+
+- Aula 6: Visualizando dados
+
+- Aula 7: Comunicando resultados com Markdown
+
+
+---
+class:    
+
+# Agenda de hoje
+
+- Breve recapitulação
+
+- Manipulação de dados: if_else() e case_when()
+
+- Manipulação de dados: rename() e mutate()
+
+- Manipulação de dados: group_by() e summarise()
+
+- Manipulação de dados: joins
+
+- Desafio
+
+- Dicas finais para casa
+
+
+---
+class: center, middle
+
+## Breve recapitulação
+
+
+
+---
+class: center
+
+# Recapitulando - Pré-requisitos
+
+## - `R` e `RStudio` instalados no seu notebook 
+
+&lt;img src="img/rlogos/rstudio-r.jpg" width="25%" style="display: block; margin: auto;" /&gt;
+
+## &lt;center&gt;&lt;b&gt;OU&lt;/b&gt;&lt;/center&gt; 
+
+## - `RStudio` Cloud
+
+&lt;img src="img/rstudiocloud.PNG" width="30%" style="display: block; margin: auto;" /&gt;
+Link da aula:
+[https://bit.ly/rstudiocloud-curso-sesc](https://bit.ly/rstudiocloud-curso-sesc)
+
+Não esqueça de fazer uma cópia do projeto
+
+
+---
+
+class:    
+
+# Recapitulando - Atalhos
+
+`CTRL + ENTER`: executa a linha selecionada no script
+
+`ALT` + **`-`** gera o operador **&lt;-**
+
+`CTRL` + `SHIFT` + `M` gera o operador pipe **%&gt;%**
+
+&lt;center&gt;&lt;img src="img/S5e27_T.V._typing.gif"&gt;&lt;/center&gt; 
+
+
+---
+
+class:    
+
+# Recapitulando - Pacotes
+
+### Instalar
+
+- Via CRAN: install.packages("nome-do-pacote").
+
+
+```r
+install.packages("tidyverse")
+```
+
+- Via Github: devtools::install_github("nome-do-repo/nome-do-pacote").
+
+
+```r
+devtools::install_github("tidyverse/dplyr")
+```
+
+### Carregar
+
+
+```r
+library(tidyverse)
+```
+
+### Lembrete
+
+- Você só precisa instalar o pacote uma vez, mas precisa carregá-lo sempre que começar uma nova sessão
+
+
+---
+class: 
+
+# Recapitulando - Formato Tidy
+
+É uma coleção de pacotes `R` projetados para a ciência de dados.
+Todos os pacotes compartilham uma mesma filosofia de desenvolvimento, 
+sintaxe e estruturas de dados.
+
+&lt;img src="img/tidydata.png" width="85%" style="display: block; margin: auto;" /&gt;
+
+**Vantagens:**
+
+- facilita manipulação, modelagem, análise e visualização de dados
+- padronização / interoperabilidade: outros formatos, inputs / outputs para softwares
+
+
+---
+
+class: 
+
+# Recapitulando -  Ler /importar
+
+
+### Carregar pacote
+
+Exemplo: carrega o pacote tidyverse
+
+
+```r
+library(tidyverse)
+```
+
+### Importar arquivo 
+
+Exemplo: importa vacinas.csv para o objeto df_vacinas da pasta `data`
+
+
+```r
+df_vacinas &lt;- read.csv("data/vacinas.csv")
+```
+
+
+---
+
+class:
+
+# Recapitulando - Ver / espiar
+
+### Ver dataframe inteiro
+
+Exemplo:
+
+
+```r
+View(df_vacinas)
+```
+
+### Ver resumo do dataframe
+
+Exemplo:
+
+
+```r
+df_vacinas %&gt;% glimpse()
+```
+
+
+---
+
+class:
+
+# Recapitulando - Selecionar / filtrar
+
+
+### Selecionar colunas (variáveis)
+
+**select()**
+
+
+### Selecionar linhas (observações)
+
+**filter()**
+
+Exemplo: Retornar nome e endereço dos postos volantes, megapostos e postos em parque que não estão funcionando
+
+
+```r
+df_postos_funcionando &lt;- df_vacinas %&gt;%
+  filter((tipo_posto == "PARQUES" |
+           tipo_posto == "MEGAPOSTO" |
+           tipo_posto == "POSTO VOLANTE") &amp;
+           (status_fila == "NÃO FUNCIONANDO")) %&gt;% 
+  select(equipamento, endereco)
+```
+
+---
+
+class:
+
+# Recapitulando - Operadores Relacionais
+
+- Igual a: **==** &lt;br&gt;&lt;/br&gt; 
+- Diferente de: **!=** &lt;br&gt;&lt;/br&gt;
+- Maior que: **&gt;** &lt;br&gt;&lt;/br&gt;
+- Maior ou igual: **&gt;=** &lt;br&gt;&lt;/br&gt;
+- Menor que: **&lt;** &lt;br&gt;&lt;/br&gt;
+- Menor ou igual: **&lt;=** &lt;br&gt;&lt;/br&gt;
+
+
+---
+class: center, middle
+
+## Manipulação de dados: condicionais
+
+
+---
+
+class:
+
+# Manipulação de dados
+
+### se e senão
+
+***if_else ()***
+
+    if_else(condição,
+            valor se condição for verdadeira,
+            valor se condição for falsa,
+            valor no caso de NA)
+
+Exemplo: 
+
+
+```r
+df_vacinas_tratado &lt;- df_vacinas %&gt;%
+  mutate(falta_coronavac = if_else(
+    coronavac == 0,
+    "postos_SEM_coronavac",
+    "postos_COM_coronavac",
+    missing = "sem informação"
+  ))
+```
+
+
+---
+
+class:
+
+# Manipulação de dados
+
+### no caso de
+
+***case_when***
+
+    case_when(condição1 ~ valor se condição1 for verdadeira,
+              condição 2  ~ valor se condição2 for verdadeira,
+              ...,
+              TRUE ~ valor assumido para as demais condições) 
+
+*É como se fossem vários if_elses juntos*
+
+Exemplo: 
+
+
+```r
+df_vacinas_tratado &lt;- df_vacinas_tratado %&gt;%
+  mutate(falta_pfizer = case_when(
+      pfizer == 0 ~ "postos_SEM_pfizer",
+      pfizer == 1 ~ "postos_COM_pfizer",
+      TRUE ~ "sem informação"))
+  ))
+```
+
+---
+class: center, middle
+
+## Manipulação de dados: alterar nome e conteúdo de variáveis
+
+
+---
+
+class:
+
+# Manipulação de dados
+
+## Renomear variáveis da base de dados
+
+***rename(novo_nome = nome_antigo)***
+
+--
+
+## Criar ou modificar variáveis da base de dados
+
+***mutate(variavel = expressão)***
+
+
+---
+
+class:
+
+# Manipulação de dados
+
+Exemplo: Criar nova coluna "falta_az" indicando se há ou não a vacina aztrazeneca disponível
+
+
+```r
+df_vacinas_tratado &lt;- df_vacinas_tratado %&gt;%
+  mutate(falta_az = case_when(
+    astrazeneca == 0 ~ "postos_SEM_astrazeneca",
+    astrazeneca == 1 ~ "postos_COM_astrazeneca",
+    TRUE ~ "sem informação"))
+```
+
+--
+
+O nome falta_az ficou meio obscuro, vamos renomear para falta_astrazeneca:
+
+
+```r
+df_vacinas &lt;- df_vacinas %&gt;%
+  rename (falta_astrazeneca = falta_az)
+```
+
+
+---
+
+class:
+
+# Manipulação de dados
+
+## Agrupar colunas (variáveis) de uma base de dados
+
+***group_by()***
+
+--
+
+## Sumarizar colunas da base de dados, ou seja, resume os valores das colunas em um só valor.
+
+***summarise()***
+
+Pode ser a média, mediana, mínimo, máximo, etc.
+
+--
+
+**Atenção: a função "group_by" SEMPRE precisa de um acompanhamento, como a função summarise**
+
+
+---
+
+class:
+
+# Manipulação de dados
+
+Exemplo: Calcular o total de postos por distrito que estão funcionando
+
+--
+
+Primeiramente, vou definir o dataframe (df_postos_por_distrito) apenas com
+postos que estão funcionando e, na sequência vou criar uma variável (flag) que
+sinaliza se a observação corresponde a um equipamento existente (excluindo os 
+campos nulos).
+
+--
+
+
+```r
+df_postos_por_distrito &lt;- df_vacinas_tratado %&gt;%
+  filter(status_fila != "NÃO FUNCIONANDO") %&gt;%
+  mutate(equipamento_existe = case_when(
+    !is.na(equipamento) ~ 1,
+    T ~ 0))
+```
+--
+
+Aí faço a soma, agrupando por distrito :)
+
+--
+
+
+```r
+df_postos_por_distrito &lt;- df_postos_por_distrito %&gt;%
+  group_by(distrito) %&gt;%
+  summarise(qtde_postos_total_por_distrito = sum(equipamento_existe))  
+```
+
+---
+
+class: center, middle
+
+## Manipulação de dados: joins
+
+
+---
+
+class:
+
+# Manipulação de dados
+
+## Join
+
+Os vários tipos de `Join` são usados para unir, de diversas formas, dataframes.
+
+--
+
+&lt;img src="img/joins.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+*Dica: para ajudar a compreender as operações de join, vale lembrar daquelas operações com conjuntos: união, intersecção, etc.*
+
+
+---
+
+class:
+
+# Manipulação de dados
+
+## Join
+
+Exemplo: Dados 2 dataframes, um com top 10 estados brasileiros mais populosos e 
+outro com top 10 estados brasileiros em IDH-M (dados de 2016 e 2017)
+
+&lt;img src="img/tabelas.png" width="110%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+class:
+
+# Manipulação de dados
+
+## Join
+
+É preciso definir qual é a variável (chave, key) que será usada para unir os dataframes.
+
+No nosso caso, será `UF`.
+
+
+&lt;img src="img/tabelas_com_ids.png" width="110%" style="display: block; margin: auto;" /&gt;
+
+---
+
+class:
+
+# Manipulação de dados
+
+## Join
+
+Preparação para nossos exemplos:
+
+
+```r
+# carrega pacote tidyverse
+library(tidyverse)
+
+# configura diretoório de trabalho
+setwd("/cloud/project/Aula4_files")
+
+# lê o csv com dados de populacao
+df_populacao &lt;- read.csv("data/populacao.csv")
+
+# lê o csv com dados de idh-m
+df_idhm &lt;- read.csv("data/idhm.csv")
+```
+
+
+---
+
+class:
+
+# Manipulação de dados
+
+## left_join
+
+Ao unir 2 dataframes com left_join, o dataframe da esquerda permanece íntegro, e são acrescentadas as colunas do dataframe da direita que derem "match" a partir da variável de compatibilização (***by***).
+
+&lt;img src="img/leftjoin.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+class:
+
+# Manipulação de dados
+
+## left_join
+
+
+```r
+# Acrescenta dados de IDH dos top 10 estados aos top 10 estados mais populosos
+df_resultante_left &lt;- df_populacao %&gt;% 
+  left_join(df_idhm, by = "UF")
+```
+
+
+---
+
+class:
+
+# Manipulação de dados
+
+## right_join
+
+Ao unir 2 dataframes com right_join, o dataframe da direita permanece íntegro, e são acrescentadas as colunas do dataframe da esquerda que derem "match" a partir da variável de compatibilização (***by***).
+
+&lt;img src="img/rigthjoin.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+class:
+
+# Manipulação de dados
+
+## right_join
+
+
+```r
+# Acrescenta dados de população dos top 10 estados aos top 10 estados com melhor idh
+df_resultante_right &lt;- df_populacao %&gt;% 
+  right_join(df_idhm, by = "UF")
+```
+
+
+---
+
+class:
+
+# Manipulação de dados
+
+## inner_join
+
+Ao unir 2 dataframes com inner_join, as observações que permanecem, de ambos os 
+dataframes, são aquelas que têm correspondência a partir da variável de compatibilização (***by***).
+
+&lt;img src="img/innerjoin.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+class:
+
+# Manipulação de dados
+
+## inner_join
+
+
+```r
+# Gera dataframe apenas dos estados que estão entre os top 10 mais populosos e 
+# também estão entre os top 10 com melhor IDH
+df_resultante_inner &lt;- df_populacao %&gt;% 
+  inner_join(df_idhm, by = "UF")
+```
+
+
+---
+
+class:
+
+# Manipulação de dados
+
+## full_join
+
+Todas as observações, de ambos os dataframes, são preservadas, sendo que aquelas
+que têm correspondência a partir da variável de compatibilização (***by***) são pareadas.
+
+&lt;img src="img/fulljoin.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+class:
+
+# Manipulação de dados
+
+## full_join
+
+
+```r
+# Gera dataframe de todos os estados, bastando estar entre os top 10 de população
+# ou de idh. Caso não haja dados correspondentes, campos ficam com NA
+df_resultante_full &lt;- df_populacao %&gt;% 
+  full_join(df_idhm, by = "UF")
+```
+
+
+
+---
+class:    
+
+# Desafio
+
+No seu script R:
+
+1) Crie nova coluna "falta_janssen" indicando se há ou não a vacina janssen disponível
+
+2) Calcular o total de postos por distrito com janssen
+
+3) Calcular a porcentagem de postos com janssen, por distrito
+
+
+---
+class:    
+
+# Desafio - resposta 1)
+
+No seu script R:
+
+1) Crie nova coluna "falta_janssen" indicando se há ou não a vacina janssen disponível
+
+
+```r
+df_vacinas_tratado &lt;- df_vacinas_tratado %&gt;%
+  mutate(falta_janssen = case_when(
+    janssen == 0 ~ "postos_SEM_janssen",
+    janssen == 1 ~ "postos_COM_janssen",
+    T ~ "sem informação"))
+```
+
+---
+class:    
+
+# Desafio - resposta 2)
+
+No seu script R:
+
+2) Calcular o total de postos por distrito com janssen
+
+
+```r
+# Determina o total de postos com janssen por distrito
+df_postos_por_distrito &lt;- df_vacinas_tratado %&gt;%
+  filter(status_fila != "NÃO FUNCIONANDO") %&gt;%
+  mutate(equipamento_existe = case_when(
+    !is.na(equipamento) ~ 1,
+    T ~ 0)) %&gt;% 
+  # agrupa por distritos e por falta_janssen
+  group_by(distrito, falta_janssen) %&gt;%
+  # e faz a soma
+  summarise(qtde_postos_com_janssen_por_distrito = sum(equipamento_existe)) %&gt;% 
+  # filtra apenas os postos que têm janssen
+  filter(falta_janssen == "postos_COM_janssen")
+```
+
+
+---
+class:    
+
+# Desafio - resposta 3)
+
+3) Calcular a porcentagem de postos com janssen, por distrito
+
+
+```r
+df_postos_com_janssen_por_distrito &lt;- df_postos_com_janssen_por_distrito  %&gt;% 
+  right_join(df_postos_por_distrito, by = "distrito") %&gt;% 
+  mutate(porcentagem_janssen = (qtde_postos_com_janssen_por_distrito/qtde_postos_total_por_distrito)*100,
+         porcentagem_janssen = if_else(is.na(porcentagem_janssen), 0, porcentagem_janssen)) %&gt;%
+  select(distrito, porcentagem_janssen)
+```
+
+
+---
+class:    
+
+# Curiosidade para casa!
+
+Função que raspa os dados do site "De Olho na Fila" da Prefeitura de São Paulo
+
+
+
+```r
+deolhonafila &lt;- function(){
+  
+  # Define url do site que será raspado
+  url &lt;- "https://deolhonafila.prefeitura.sp.gov.br/processadores/dados.php"
+
+  # Usa a função POST (que faz requisições) do pacote httr que precisa passar como
+  # parâmetros, ao menos: endereço web a ser raspado (url), o que será raspado (body)
+  # e como é a forma do dado que envio para a página (encode)
+  httr::POST(url, body = list(dados = "dados"), encode = "form")  %&gt;%
+    
+    # extrai o conteúdo da requisição
+    httr::content("text")  %&gt;%
+    
+    # função que transforma dados organizados como JSON para objetos R
+    jsonlite::fromJSON()
+}
+```
+
+Autoria: José de Jesus Filho, disponível em: [https://github.com/jjesusfilho](https://github.com/jjesusfilho)
+
+
+---
+class:    
+
+# Para aprender mais &amp; Referências:
+
+- [Pacote httr](https://www.rdocumentation.org/packages/httr) &lt;br&gt;&lt;/br&gt;
+- [Pacote jsonlite](https://rdrr.io/cran/jsonlite/man/fromJSON.html) &lt;br&gt;&lt;/br&gt;
+- [Pacote swirl](https://swirlstats.com/) &lt;br&gt;&lt;/br&gt;
+- [Análise de Dados para as Ciências Sociais, por Jonathan Phillips](https://jonnyphillips.github.io/Ciencia_de_Dados/) &lt;br&gt;&lt;/br&gt;
+- [Cheat sheets do RStudio](https://www.rstudio.com/resources/cheatsheets/) &lt;br&gt;&lt;/br&gt;
+- [Livro `R` for Data Science](https://r4ds.had.co.nz) &lt;br&gt;&lt;/br&gt;
+- [Repositório RLadies São Paulo](https://github.com/rladies/meetup-presentations_sao-paulo) &lt;br&gt;&lt;/br&gt;
+
+
+---
+class:center
+
+# Agradecimentos
+
+Ana Carolina Moreno
+&lt;img src="img/carol-moreno.jpeg" width="20%" style="display: block; margin: auto;" /&gt;
+
+Capítulo RLadies São Paulo
+&lt;img src="img/rlogos/r-ladies-sp.png" width="20%" style="display: block; margin: auto;" /&gt;
+
+Apresentação feita com [RMarkdown](https://rmarkdown.rstudio.com/) e [Xaringan](https://github.com/yihui/xaringan), &lt;br&gt;
+com o tema `metropolis` modificado por Bea Milz e Haydee Svab
+
+
+---
+class: middle
+
+&lt;center&gt;&lt;img src="img/if_you_want_to_go_fast_go_alone.jpg" style="width: 50%"&gt;&lt;/center&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="libs/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<style>
+  .logo {
+/*    background-image: url(img/rainbow.png); */
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+    width: 50px;
+    height: 128px;
+    z-index: 0;
+  }
+</style>
+  
+  <script>
+  document
+.querySelectorAll(
+  '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+  // ':not(.inverse)' +
+    ':not(.hide-logo)'
+)
+.forEach(el => {
+  el.innerHTML += '<div class="logo"></div>';
+});
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
