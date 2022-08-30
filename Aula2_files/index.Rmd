@@ -47,13 +47,13 @@ class:
 
 - Aula 3: Abrindo e manipulando dados
 
-- Aula 4: Estatísticas básicas
+- Aula 4: Tratando dados
 
-- Aula 5: Visualizando dados
+- Aula 5: Estatísticas básicas
 
-- Aula 6: Markdown
+- Aula 6: Visualizando dados
 
-- Aula 7: Comunicando resultados
+- Aula 7: Comunicando resultados com Markdown
 
 
 ---
@@ -630,7 +630,7 @@ class(conta)
 --
 
 ```{r}
-as.character(conta)
+conta <- as.character(conta)
 class(conta)
 ```
 
@@ -1096,182 +1096,6 @@ dataframe_flores[10,4] < dataframe_flores[11,4] # Petal.Width da 10ª linha é m
 
 dataframe_flores[10,5]
 ```
-
-
----
-
-class: center, middle
-
-## Pacotes no R
-
-
----
-class:    
-
-# Pacotes
-
-**Pacotes** são coleções de funções, dados e documentação que estendem as capacidades do `R` básico.
-
-Eles precisam ser instalados e carregados.
-
-<center><img src="img/icon-packages.png" style="width: 45%"></center>
-
-
----
-class:    
-
-# Instalar Pacotes:
-
-- Via CRAN: install.packages("nome-do-pacote").
-
-```{r, include=TRUE, eval = FALSE }
-install.packages("tidyverse")
-```
-
-- Via Github: devtools::install_github("nome-do-repo/nome-do-pacote").
-
-```{r, include=TRUE, eval = FALSE }
-devtools::install_github("tidyverse/dplyr")
-```
-
-
----
-class:    
-
-# Carregar pacotes:
-
-- library(nome-do-pacote)
-
-```{r, eval=TRUE, message=FALSE}
-library(tidyverse)
-```
-
-
----
-class:    
-
-# Dicas sobre Pacotes
-
-1. Você só precisa instalar o pacote uma vez, mas precisa carregá-lo sempre que começar uma nova sessão;
-
-2. Para instalar o pacote use as aspas;  
-
-3. Para carregar o pacote, **não** utilize as aspas.
-
-
----
-class:    
-
-# Pacotes - CRAN Task View
-
-Relação de pacotes encontrados no CRAN por áreas de interesse.
-
-- [CRAN Task View](https://cran.r-project.org/web/views/)
-
-```{r echo=FALSE, fig.align='center', out.width="100%"}
-knitr::include_graphics("img/cran_task_view.png")
-```
-
-
----
-class: center, middle
-
-
-## Tidyverse
-
-
----
-class:
-
-# O Tidyverse
-
-É uma coleção de pacotes `R` projetados para a ciência de dados.
-Todos os pacotes compartilham uma mesma filosofia de desenvolvimento, 
-sintaxe e estruturas de dados.
-
-```{r echo=FALSE, fig.align='center', out.width="65%"}
-knitr::include_graphics("img/tidyverse_packages.png")
-```
-
-
----
-class:
-
-# Pacotes do Tidyverse
-
-- **readr**: leitura dos dados <br></br>
-- **tidyr**: arruma os dados <br></br>
-- **dplyr**: manipulação de dados <br></br>
-- **tibble**: dataframes moderno, mais simples de manipular <br></br>
-- **magrittr**: facilita a escrita e leitura do código <br></br>
-- **ggplot2**: cria gráficos <br></br>
-- **stringr**: trabalha com strings <br></br>
-- **forcats**: trabalha com fatores <br></br>
-- **lubridate**: trabalha com datas <br></br>
-- **purrr**: ferramentas para programação funcional, trabalha com funções e vetores
-
----
-class:
-
-
-# O operador %>%, o Pipe
-
-Imagine uma receita que tenha as instruções:
-- junte os ingredientes;
-- misture;
-- leve ao forno.
-
---
-
-Na forma usual do R (*R Base* ou *R Básico*), essas instruções provavelmente seriam assim:
-
-**forno(misture(junte(ingredientes)))**
-
-Dessa forma temos que pensar “de dentro para fora”, seguindo os parênteses.
-Porém, o primeiro comando que lemos é forno, mas esta será a última operação a ser realizada.
-
---
-
-O operador pipe muda a sintaxe para facilitar a leitura, que ficará assim:
-
-**ingredientes %>% junte %>% misture %>% forno**
-
-É mais intuitivo!
-
-<!---
-Formas de pensar:
-um operador que efetua as operações à direita nos valores que estão à esquerda.
-um operador que passa o que está à esquerda como argumento para a operação da direita.
--->
-
----
-
-class:    
-
-# Dica
-
-##Seu terceiro "atalho" no R:
-
-
-`CTRL` + `SHIFT` + `M` gera o operador pipe **%>%**
-
-<center><img src="img/S5e27_T.V._typing.gif"></center> 
-
----
-
-class:    
-
-# Em casa...
-
-Usando o RStudio instalado no computador:
-
-- Instale o pacote `tidyverse`:
-
-```{r, include=TRUE, eval = FALSE }
-install.packages("tidyverse")
-```
-
-- OBS: Usando RStudio Cloud (como na aula) não é necessário realizar estes passos.
 
 
 ---

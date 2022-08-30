@@ -4,6 +4,7 @@
     <title>index.knit</title>
     <meta charset="utf-8" />
     <meta name="author" content="17/08/2022" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/metropolis.css" type="text/css" />
     <link rel="stylesheet" href="css/metropolis-fonts.css" type="text/css" />
@@ -872,19 +873,12 @@ class(conta)
 
 
 ```r
-as.character(conta)
-```
-
-```
-## [1] "50.75"
-```
-
-```r
+conta &lt;- as.character(conta)
 class(conta)
 ```
 
 ```
-## [1] "numeric"
+## [1] "character"
 ```
 
 
@@ -910,7 +904,7 @@ class(conta)
 ```
 
 ```
-## [1] "numeric"
+## [1] "character"
 ```
 
 --
