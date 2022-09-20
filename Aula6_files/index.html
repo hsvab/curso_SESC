@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>index.knit</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="21/09/2022" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/metropolis.css" type="text/css" />
+    <link rel="stylesheet" href="css/metropolis-fonts.css" type="text/css" />
+    <link rel="stylesheet" href="css/footer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# <center>
+<img src= 'img/logo_sesc.jpg' width = '30%' alt='SESC Logo'></br>
+</center>
+]
+.subtitle[
+## Programação em R <BR> para Análise de Dados <BR> Uma Introdução
+]
+.author[
+### 21/09/2022
+]
+
+---
+
+layout: true
+  
+&lt;div class="my-footer"&gt;&lt;span&gt;
+
+
+&lt;a href="https://www.linkedin.com/in/hsvab/"&gt;LinkdIn&lt;/a&gt; |
+&lt;a href="https://twitter.com/hsvab"&gt;Twitter&lt;/a&gt; | 
+&lt;a href="https://www.instagram.com/haydeesvab/"&gt;Instagram&lt;/a&gt; |
+&lt;a href="https://www.facebook.com/haydee.svab/"&gt;Facebook&lt;/a&gt; |
+&lt;a href="https://github.com/hsvab"&gt;GitHub&lt;/a&gt;
+
+
+&lt;/span&gt;&lt;/div&gt; 
+
+
+---
+
+class:
+
+# Agenda do Curso
+
+- Aula 1: Introdução ao R e ao RStudio
+
+- Aula 2: Primeiros passos com R (R base)
+
+- Aula 3: Pacote tidyverse, abertura e manipulação de dados
+
+- Aula 4: Tratando dados
+
+- Aula 5: Estatísticas básicas
+
+- **Aula 6: Visualizando dados**
+
+- Aula 7: Comunicando resultados com Markdown
+
+
+---
+class:    
+
+# Agenda de hoje
+
+- Breve recapitulação
+
+- Bases de dados do R
+
+- Pacote `ggplot`
+
+- Histograma
+
+- Gráfico de barras
+
+- Gráfico de pontos
+
+- Pacote `esquisse`
+
+- Para aprender mais &amp; referências
+
+
+---
+class: center, middle
+
+## Breve recapitulação
+
+
+
+---
+class: center
+
+# Recapitulando - Pré-requisitos
+
+## - `R` e `RStudio` instalados no seu notebook 
+
+&lt;img src="img/rlogos/rstudio-r.jpg" width="25%" style="display: block; margin: auto;" /&gt;
+
+## &lt;center&gt;&lt;b&gt;OU&lt;/b&gt;&lt;/center&gt; 
+
+## - `RStudio` Cloud
+
+&lt;img src="img/rstudiocloud.PNG" width="30%" style="display: block; margin: auto;" /&gt;
+Link da aula:
+[https://bit.ly/rstudiocloud-curso-sesc](https://bit.ly/rstudiocloud-curso-sesc)
+
+Não esqueça de fazer uma cópia do projeto
+
+
+---
+
+class:    
+
+# Recapitulando - Atalhos
+
+`CTRL + ENTER`: executa a linha selecionada no script
+
+`ALT` + **`-`** gera o operador **&lt;-**
+
+`CTRL` + `SHIFT` + `M` gera o operador pipe **%&gt;%**
+
+&lt;center&gt;&lt;img src="img/S5e27_T.V._typing.gif"&gt;&lt;/center&gt; 
+
+
+---
+
+class:    
+
+# Recapitulando - Pacotes
+
+### Instalar
+
+- Via CRAN: install.packages("nome-do-pacote").
+
+
+```r
+install.packages("ggplot2")
+```
+
+### Carregar
+
+
+```r
+library(ggplot2)
+```
+
+### Lembretes
+
+- Você só precisa instalar o pacote uma vez, mas precisa carregá-lo sempre que começar uma nova sessão
+- Se já instalou o tidyverse o ggplot2 já está na sua máquina
+
+
+---
+class: center, middle
+
+## Bases de dados do R
+
+---
+
+class:
+
+# Bases de dados do R
+
+Há várias maneiras de se encontrar os datasets (os bases de dados) disponíveis no R:
+
+1) Para ver a lista de datasets oriundos do R básico, de todos os pacotes carregados:
+
+`data()`
+
+2) Para ver todos os datasets disponiveis em todos os nossos pacotes baixados, mesmo que não tenhamos carregado eles:
+
+`data(package = .packages(all.available = TRUE))`
+
+3) Para ver os datasets oriundos de um pacote específico;
+
+`data(package = "packagename")`
+
+Exemplo:
+
+`data(package = "dplyr")` retornará todos os datasets disponiveis no pacote do dplyr 
+
+
+---
+class: center, middle
+
+## Pacote ggplot
+
+
+---
+
+class:
+
+# Pacote ggplot
+
+- É um pacote voltado para a visualização de dados.
+
+- Se baseia em um conceito chamado **grammar of graphics**
+
+- Faz parte do conjunto de pacotes do `tidyverse`
+
+- Foi criado pelo Hadley Wickam
+
+**Grammar of Grafics** é um conjuntop de conceitos e definições sobre o que é um gráfico e são oriundos do livro *Grammar of Graphics* ("Gramática dos Gráficos") de Leland Wilkinson.
+
+
+---
+
+class:
+
+# Pacote ggplot
+
+**Gramática da língua portuguesa** -&gt; estabelece regras para a combinação de palavras, frases e sentenças visando a combinação desses componentes para a produção de sentenças válidas (ou gramaticalmente corretas)
+
+--
+
+**Gramática dos gráficos** -&gt; conjunto de regras para a combinação de certos *componentes gráficos* para a construção de gráficos.
+
+Exemplos de *componentes gráficos*:
+
+- dado a ser usado para gerar o gráfico,
+- um sistema de coordenadas (eixo x e eixo y),
+- etc.
+
+
+---
+
+class:
+
+# Pacote ggplot
+
+## Template de gráfico no ggplot
+
+Todo gráfico começa com o comando `ggplot()` que precisa no mínimo de dois argumentos:
+
+- o dataset que queremos usar [argumento data]
+- o componente do dado que queremos representar no gráfico [argumento aes]
+
+`ggplot(data = meu_dataframe, aes(variaveis_a_ser_representadas_no_grafico))`
+
+
+---
+
+class:
+
+# Pacote ggplot
+
+## Template de gráfico no ggplot
+
+Além disso, também é preciso definir o tipo de gráfico desejado [função geom]
+
+`ggplot(data = meu_dataframe, aes(variaveis_a_ser_representadas_no_grafico)) +`
+  `geom_xxx(argumentos_para_mudar_a_aparencia_do_geom) +`
+  
+*Observação: notar que cada camada adicionada no ggplot é acrescentada utilizado o +*
+
+
+---
+
+class:
+
+# Pacote ggplot
+
+## Template de gráfico no ggplot
+
+Para modificarmos a aparência do nosso geom podemos passar argumentos para essa 
+função, bem como definir nomes de eixos, título e legendas, da seguinte maneira:
+
+`ggplot(data = meu_dataframe, aes(variaveis_a_ser_representadas_no_grafico)) +`
+  `geom_xxx(argumentos_para_mudar_a_aparencia_do_geom) +`
+  `theme_xxx(argumentos_para_mudar_aparencia_geral_do_grafico) +`
+  `labs(adiciona_nomes_dos_eixos_e_titulo)`
+
+
+---
+class: center, middle
+
+## Histograma
+
+
+---
+
+class:
+
+# Histograma
+
+Usando a base de dados `diamonds`, disponível no pacote do ggplot, faça o histograma do preço (price)
+
+
+```r
+# Carga da base de dados
+diamantes &lt;- ggplot2::diamonds
+```
+
+---
+
+class:
+
+# Histograma
+
+Usando a base de dados `diamonds`, disponível no pacote do ggplot, faça o histograma do preço (price)
+
+
+```r
+# Gráfico com ggplot
+ggplot(data = diamantes, aes(x=price)) +
+  geom_histogram() +
+  theme_bw() +
+  labs(x = "Preço (em dolares)", y = "Frequência", title = "Distribuição dos valores dos diamantes")
+```
+
+&lt;img src="img/hist0.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+
+---
+class: center, middle
+
+## Desafio 1
+
+
+---
+class:    
+
+# Desafio 1
+
+No seu script R, usando a base candidatos_com_bens_sp.csv fazer o histograma mostrando a distribuição dos valores dos bens dos(as) candidatos(as) de SP
+
+
+---
+class:    
+
+# Desafio 1 - resposta
+
+Usando a base candidatos_com_bens_sp.csv fazer o histograma mostrando a distribuição da idade na data de posse em SP
+
+
+```r
+# Leitura do arquivo com todas informações de candidatos(as) e bens de São Paulo
+df_candidatos_com_bens_sp &lt;- data.table::fread(file = "./data/candidatos_com_bens_sp.csv",
+                                               encoding = "Latin-1")
+
+# Gráfico com ggplot passando os parâmetros mínimos
+ggplot(data = df_candidatos_com_bens_sp, aes(x = NR_IDADE_DATA_POSSE))
+```
+
+&lt;img src="img/hist1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+
+class:
+
+# Desafio 1 - resposta
+
+Usando a base candidatos_com_bens_sp.csv fazer o histograma mostrando a distribuição da idade na data de posse em SP
+
+
+```r
+# Gráfico com ggplot passando os parâmetros mínimos e definindo o tipo do geom
+ggplot(data = df_candidatos_com_bens_sp, aes(x = NR_IDADE_DATA_POSSE)) +
+  geom_histogram()
+```
+
+&lt;img src="img/hist2.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+class:
+
+# Desafio 1 - resposta
+
+Usando a base candidatos_com_bens_sp.csv fazer o histograma mostrando a distribuição da idade na data de posse em SP
+
+
+```r
+# Gráfico com ggplot passando os parâmetros mínimos, definindo o tipo do geom e o tema
+ggplot(data = df_candidatos_com_bens_sp, aes(x = NR_IDADE_DATA_POSSE)) +
+  geom_histogram() +
+  theme_minimal()
+```
+
+&lt;img src="img/hist3.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+[Para conhecer mais temas disponíveis visitar a página ggplot2.tidyverse.org](https://ggplot2.tidyverse.org/reference/ggtheme.html)
+
+---
+
+class:
+
+# Desafio 1 - resposta
+
+Usando a base candidatos_com_bens_sp.csv fazer o histograma mostrando a distribuição da idade na data de posse em SP
+
+
+```r
+# Gráfico com ggplot passando os parâmetros mínimos, o tipo do geom, o tema e os rótulos de eixo
+ggplot(data = df_candidatos_com_bens_sp, aes(x = NR_IDADE_DATA_POSSE)) +
+  geom_histogram() +
+  theme_minimal() +
+  labs(x = "Idade", y = "Frequência",
+       title = "Distribuição da Idade na Data de Posse em SP")
+```
+
+&lt;img src="img/hist4.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+
+
+```r
+# Gráfico com ggplot passando os parâmetros mínimos e definindo o tipo do geom
+ggplot(data = df_candidatos_com_bens_sp, aes(x = NR_IDADE_DATA_POSSE)) +
+  geom_histogram() +
+  theme_minimal() +
+  labs(x = "Idade", y = "Quantidade de candidatos(as)",
+       title = "Distribuição da Idade na Data de Posse em SP")
+```
+
+
+---
+class: center, middle
+
+## Gráfico de barras
+
+
+---
+
+class:
+
+# Gráfico de barras
+
+Há dois tipos de gráficos de barras:
+
+- geom_bar()
+- geom_col()
+
+Deve-se usar `geom_bar()` quando se deseja a altura da barra proporcional ao número de casos em cada grupo
+
+Deve-se usar `geom_col()` quando se deseja que as alturas das barras sejam valores presentes nos dados
+
+---
+
+class:
+
+# Gráfico de barras
+
+Usando a base de dados `Cars93`, disponível no pacote MASS, faça um gráfico de barras dos tipos de carro (Type)
+
+
+```r
+# Carga da base de dados
+library(MASS)
+carros &lt;- Cars93
+
+# Gráfico com ggplot passando os parâmetros mínimos e o tipo do geom
+ggplot(data = carros, aes(x = Type)) +
+  geom_bar()
+```
+
+&lt;img src="img/bars1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+class:
+
+# Gráfico de barras
+
+Usando a base de dados `Cars93`, disponível no pacote MASS, faça um gráfico de barras dos tipos de carro (Type)
+
+
+```r
+# Gráfico com ggplot passando os parâmetros mínimos, tipo do geom, tema e labels
+ggplot(data = carros, aes(x = Type)) +
+  geom_bar() +
+  theme_classic() +
+  labs(x = "Tipo de carro", y = "Frequência", title = "Tipo de carro na base Cars93")
+```
+
+&lt;img src="img/bars2.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+class:
+
+# Gráfico de barras
+
+Usando a base de dados `Cars93`, disponível no pacote MASS, faça um gráfico de barras dos tipos de carro (Type)
+
+
+```r
+# Gráfico com ggplot passando os parâmetros mínimos, tipo do geom, tema, labels 
+# e rótulo de valores nas barras
+ggplot(data = carros, aes(x = Type)) +
+  geom_bar() +
+  theme_classic() +
+  labs(x = "Tipo de carro", y = "Frequência", title = "Tipo de carro na base Cars93") +
+  geom_text(stat='count', aes(label=..count..), vjust=-0.5)
+```
+
+&lt;img src="img/bars3.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+class:
+
+# Gráfico de barras
+
+No seu script R, usando a base `candidatos_com_bens_sp.csv` fazer um gráfico de 
+barras que mostre a quantidade de candidatos por partido em SP
+
+
+```r
+ggplot(data = df_candidatos_partido, aes(x = NM_PARTIDO,
+                                         y = QUANTIDADE_CANDIDATOS)) +
+  geom_col() +
+  theme_minimal() +
+  labs(x = "Partidos",
+       y = "Quantidade de candidatos(as)",
+       title = "Quantidade de Candidatos(a) por Partido em SP")
+```
+
+&lt;img src="img/cols1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+class:
+
+# Gráfico de barras
+
+Reordenando os valores de x, segundo os valores de y
+
+
+```r
+ggplot(data = df_candidatos_partido, aes(x = reorder(NM_PARTIDO, QUANTIDADE_CANDIDATOS),
+                                         y = QUANTIDADE_CANDIDATOS)) +
+  geom_col() +
+  theme_minimal() +
+  labs(x = "Partidos",
+       y = "Quantidade de candidatos(as)",
+       title = "Quantidade de Candidatos(a) por Partido em SP")
+```
+
+&lt;img src="img/cols2.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+class:
+
+# Gráfico de barras
+
+Rotacionando 90 graus os textos do eixo x
+
+
+```r
+ggplot(data = df_candidatos_partido, aes(x = reorder(NM_PARTIDO, QUANTIDADE_CANDIDATOS),
+                                         y = QUANTIDADE_CANDIDATOS)) +
+  geom_col() +
+  theme_minimal() +
+  labs(x = "Partidos",
+       y = "Quantidade de candidatos(as)",
+       title = "Quantidade de Candidatos(a) por Partido em SP")+
+  theme(axis.text.x = element_text(angle = 90))
+```
+
+&lt;img src="img/cols3.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+class:
+
+# Gráfico de barras
+
+Invertendo eixos x e y
+
+
+```r
+ggplot(data = df_candidatos_partido, aes(x = reorder(NM_PARTIDO, QUANTIDADE_CANDIDATOS),
+                                         y = QUANTIDADE_CANDIDATOS)) +
+  geom_col() +
+  theme_minimal() +
+  labs(x = "Partidos",
+       y = "Quantidade de candidatos(as)",
+       title = "Quantidade de Candidatos(a) por Partido em SP")+
+  theme(axis.text.x = element_text(angle = 90)) +
+  coord_flip()
+```
+
+&lt;img src="img/cols4.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+class:
+
+# Gráfico de barras
+
+Acrescentando rótulos de valores nas barras
+
+
+```r
+ggplot(data = df_candidatos_partido, aes(x = reorder(NM_PARTIDO, QUANTIDADE_CANDIDATOS),
+                                         y = QUANTIDADE_CANDIDATOS)) +
+  geom_col() +
+  theme_minimal() +
+  labs(x = "Partidos",
+       y = "Quantidade de candidatos(as)",
+       title = "Quantidade de Candidatos(a) por Partido em SP")+
+  theme(axis.text.x = element_text(angle = 90)) +
+  coord_flip() +
+  geom_text(aes(label=QUANTIDADE_CANDIDATOS), hjust=-0.5)
+```
+
+&lt;img src="img/cols5.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+
+---
+class: center, middle
+
+## Gráfico de pontos
+
+
+---
+
+class:
+
+# Gráfico de pontos
+
+Usando a base de dados `mpg`, que traz dados de economia de combustível de 1999 a 2008 para 38 modelos populares de carros, faça um gráfico de pontos de displ (engine displacement in liters - cilidradas em litros) por hwy (highway miles per gallon - milhas por galão)
+
+
+```r
+# Carga da base de dados
+dados_economia_combustivel &lt;- mpg
+
+# Gráfico com ggplot passando os parâmetros mínimos e o tipo do geom
+ggplot(data = dados_economia_combustivel, aes(x = displ, y = hwy)) +
+  geom_point()
+```
+
+&lt;img src="img/points1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+class:
+
+# Gráfico de pontos
+
+Colorindo segundo a classe do veículo
+
+
+```r
+# Gráfico com ggplot passando os parâmetros mínimos e o tipo do geom
+ggplot(data = dados_economia_combustivel, aes(x = displ, y = hwy)) +
+  geom_point(aes(color = class))
+```
+
+&lt;img src="img/points2.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+class:
+
+# Gráfico de pontos
+
+Acrescentando linha de tendência e bandas do intervalo de confiança (padrão é 95%)
+
+
+```r
+# Gráfico com ggplot passando os parâmetros mínimos e o tipo do geom
+ggplot(data = dados_economia_combustivel, aes(x = displ, y = hwy)) +
+  geom_point(aes(color = class)) +
+  geom_smooth()
+```
+
+&lt;img src="img/points3.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+
+---
+class: center, middle
+
+## Pacote esquisse
+
+
+---
+
+class:    
+
+# Pacote esquisse
+
+## Instalar &amp; Carregar
+
+
+```r
+install.packages("esquisse")
+library(esquisse)
+```
+
+## Como usar
+
+&lt;img src="img/esquisse.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+
+---
+class: center, middle
+
+## Desafio 2
+
+
+---
+
+class:    
+
+# Desafio 2
+
+Usando o pacote `esquisse` e a base de dados `candidatos_com_bens_sp.csv` fazer um gráfico de pontos do valor dos bens de candidatos(as) por idade na data da posse, colorindo segundo o genero e separando segundo cor/raça.
+
+Ao final, copiar o código para seu script R.
+
+
+---
+
+class:    
+
+# Desafio 2 - resposta
+
+&lt;img src="img/esquisse1.png" width="110%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+class:    
+
+# Desafio 2 - resposta
+
+
+```r
+ggplot(df_candidatos_com_bens_sp) +
+  aes(
+    x = VR_BEM_CANDIDATO,
+    y = NR_IDADE_DATA_POSSE,
+    colour = DS_GENERO
+  ) +
+  geom_point(shape = "circle", size = 1.5) +
+  scale_color_hue(direction = 1) +
+  theme_minimal() +
+  facet_wrap(vars(DS_COR_RACA))
+```
+
+---
+class:    
+
+# Para aprender mais &amp; referências:
+
+- [Pacote esquisse](https://cran.r-project.org/web/packages/esquisse/vignettes/get-started.html) &lt;br&gt;&lt;/br&gt;
+- [Pacote ggplot2](https://ggplot2.tidyverse.org/) &lt;br&gt;&lt;/br&gt;
+- [geom_histogram](https://ggplot2.tidyverse.org/reference/geom_histogram.html) &lt;br&gt;&lt;/br&gt;
+- [geom_bar e geom_col](https://ggplot2.tidyverse.org/reference/geom_bar.html) &lt;br&gt;&lt;/br&gt;
+- [geom_point](https://ggplot2.tidyverse.org/reference/geom_point.html) &lt;br&gt;&lt;/br&gt;
+- [geom_smooth](https://ggplot2.tidyverse.org/reference/geom_smooth.html) &lt;br&gt;&lt;/br&gt;
+- [Livro `R` for Data Science](https://r4ds.had.co.nz) &lt;br&gt;&lt;/br&gt;
+- [Repositório RLadies São Paulo](https://github.com/rladies/meetup-presentations_sao-paulo) &lt;br&gt;&lt;/br&gt;
+- [Storytelling com Dados](https://www.amazon.com.br/Storytelling-com-Dados-Visualiza%C3%A7%C3%A3o-Profissionais/dp/8550804681) &lt;br&gt;&lt;/br&gt;
+
+
+---
+class:center
+
+# Agradecimentos
+
+Diego Rabatone Oliveira
+&lt;img src="img/diego-rabatone.jpeg" width="20%" style="display: block; margin: auto;" /&gt;
+
+Capítulo RLadies São Paulo
+&lt;img src="img/rlogos/r-ladies-sp.png" width="20%" style="display: block; margin: auto;" /&gt;
+
+Apresentação feita com [RMarkdown](https://rmarkdown.rstudio.com/) e [Xaringan](https://github.com/yihui/xaringan), &lt;br&gt;
+com o tema `metropolis` modificado por Bea Milz e Haydee Svab
+
+
+---
+class: middle
+
+&lt;center&gt;&lt;img src="img/if_you_want_to_go_fast_go_alone.jpg" style="width: 50%"&gt;&lt;/center&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="libs/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<style>
+  .logo {
+/*    background-image: url(img/rainbow.png); */
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+    width: 50px;
+    height: 128px;
+    z-index: 0;
+  }
+</style>
+  
+  <script>
+  document
+.querySelectorAll(
+  '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+  // ':not(.inverse)' +
+    ':not(.hide-logo)'
+)
+.forEach(el => {
+  el.innerHTML += '<div class="logo"></div>';
+});
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
