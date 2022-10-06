@@ -1,0 +1,19 @@
+---
+title: "Curso SESC"
+subtitle: "Última aula"
+author: "Haydée Svab"
+institute: "ASK-AR"
+date: "28/09/2022"
+output:
+  xaringan::moon_reader:
+    css:
+    - rladies
+    - rladies-fonts
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+BOA TARDE!!!
